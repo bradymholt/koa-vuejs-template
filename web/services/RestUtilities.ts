@@ -1,8 +1,17 @@
 import AuthStore from '../stores/Auth';
 
 export interface IErrorContent {
-    error: string;
-    error_description: string;
+    errors: Array<IError>;
+    message: string;
+    name: string;
+}
+
+export interface IError {
+    property: string;
+    constraints: IErrorConstraint;
+}
+
+export interface IErrorConstraint {
     [key: string]: string;
 }
 

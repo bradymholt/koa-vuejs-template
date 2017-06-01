@@ -12,7 +12,7 @@ export default class Auth {
 
     signInOrRegister(email: string, password: string, isRegister: boolean = false) {
         return RestUtilities.post<IAuthResponse>(`/api/auth/${isRegister ? 'register' : 'login'}`,
-            { username: email, password: password})
+            { email: email, password: password})
             .then((response) => {
                 if (!response.is_error) {
                     AuthStore.setToken(response.content.token);

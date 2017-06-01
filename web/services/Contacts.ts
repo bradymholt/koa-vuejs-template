@@ -1,12 +1,6 @@
 import RestUtilities from './RestUtilities';
-
-export interface IContact {
-    id?: number,
-    lastName: string;
-    firstName: string;
-    phone: string;
-    email: string;
-}
+import c from '../../shared/interfaces/IContact';
+export import IContact = c.IContact;
 
 export default class Contacts {
     fetchAll() {

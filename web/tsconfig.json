@@ -8,8 +8,7 @@
     "target": "es5",
     "lib": [
       "dom",
-      "es5",
-      "es2015.promise"
+      "es5"
     ],
     "moduleResolution": "node"
   },
@@ -18,5 +17,8 @@
   ],
   "include": [
     "./**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

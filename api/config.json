@@ -1,5 +1,4 @@
 {
-    "connectionString": "postgres://postgres:postgres@localhost:5433/koa_vuejs_template",
     "jwtKey": "cd79cb6c-17b5-4f1b-b4bb-69818069b94e",
     "port": 5000
 }

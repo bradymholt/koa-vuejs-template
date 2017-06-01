@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "module": "commonjs",
-    "target":"es2017",
+    "target": "es2017",
+    "strictNullChecks": false,
+    "sourceMap": true,
     "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": [
       "es2015"
-    ]
+    ],
+    "outDir": "build"
   },
-  "files": [
-    "./server.ts"
-  ],
   "include": [
-    "./**/*.d.ts"
+    "./**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

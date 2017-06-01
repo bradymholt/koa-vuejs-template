@@ -15,7 +15,7 @@
         {{error}}
       </div>
       <label htmlFor="inputEmail" class="form-control-label sr-only">Email address</label>
-      <input type="email" id="inputEmail" v-model="username" class="form-control form-control-danger" placeholder="Email address" />
+      <input type="email" id="inputEmail" v-model="email" class="form-control form-control-danger" placeholder="Email address" />
       <label htmlFor="inputPassword" class="form-control-label sr-only">Password</label>
       <input type="password" id="inputPassword" v-model="password" class="form-control" placeholder="Password" />
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -33,7 +33,7 @@ import AuthService from '../services/Auth';
 
 @Component
 export default class SignIn extends Vue {
-  username: string = "user@test.com";
+  email: string = "user@test.com";
   password: string = "P2ssw0rd!";
   error: string = null;
 
@@ -51,11 +51,11 @@ export default class SignIn extends Vue {
 
   onSubmit() {
     let authService = new AuthService();
-    authService.signIn(this.username, this.password).then(response => {
+    authService.signIn(this.email, this.password).then(response => {
       if (!response.is_error) {
         this.$router.push({ path: '/contacts' });
       } else {
-        this.error = response.error_content.error_description;
+        this.error = response.error_content.message;
       }
     });
   }

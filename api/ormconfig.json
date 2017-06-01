@@ -1,0 +1,33 @@
+[
+  {
+    "name": "default",
+    "driver": {
+      "type": "postgres",
+      "host": "localhost",
+      "port": 5433,
+      "username": "postgres",
+      "password": "postgres",
+      "database": "dev_database",
+      "extra":{
+
+      }
+    },
+    "autoMigrationsRun": true,
+    "autoSchemaSync": true,
+    "logging": {
+      "logSchemaCreation": true,
+      "logFailedQueryError": true,
+      "logQueries": true
+    },
+    "entities": [
+      "models/*.ts"
+    ],
+    "migrations": [
+      "migrations/*.ts"
+    ],
+    "cli": {
+      "entitiesDir": "models",
+      "migrationsDir": "migrations"
+    }
+  }
+]

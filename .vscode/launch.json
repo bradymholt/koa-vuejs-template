@@ -12,7 +12,7 @@
       "args": [
         "server.ts"
       ],
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceRoot}/api",
       "protocol": "inspector"
     },
     {
