@@ -1,13 +1,12 @@
-# ASP.NET Core / Vue.js SPA Template App
+# Koa / Vue.js SPA Template App
 
-This app is a template application using ASP.NET Core for a REST/JSON API server and Vue.js for a web client.
+This app is a template application using Koa for a REST/JSON API server and Vue.js for a web client.
 
 ## Overview of Stack
 - Server
-  - ASP.NET Core
+  - Koa
   - PostgresSQL
-  - Entity Framework Core w/ EF Migrations
-  - JSON Web Token (JWT) authorization with OpenIddict
+  - [TypeORM](https://github.com/typeorm/typeorm)
   - Docker used for development PostgresSQL database and MailCatcher server
 - Client
   - Vue.js
@@ -15,7 +14,7 @@ This app is a template application using ASP.NET Core for a REST/JSON API server
   - CSS Modules
   - Fetch API for REST requests
 - Testing
-  - xUnit for .NET Core
+  - Mocha
   - MailCatcher for development email delivery
 - DevOps
   - Ansible playbook for provisioning (Nginx reverse proxy, SSL via Let's Encrypt, PostgresSQL backups to S3)
@@ -24,7 +23,6 @@ This app is a template application using ASP.NET Core for a REST/JSON API server
 ## Setup
 
 1. Install the following:
-   - [.NET Core 1.1](https://www.microsoft.com/net/core)
    - [Node.js >= v7.8.0](https://nodejs.org/en/download/)
    - [Ansible >= 2.0](http://docs.ansible.com/ansible/intro_installation.html)
    - [Docker](https://docs.docker.com/engine/installation/)
@@ -38,7 +36,6 @@ This app is a template application using ASP.NET Core for a REST/JSON API server
 When first cloning the repo or adding new dependencies, run this command.  This will:
 
 - Install Node dependencies from package.json
-- Install .NET Core dependencies from api/api.csproj and api.test/api.test.csproj (using dotnet restore)
 
 ### `npm start`
 
@@ -46,7 +43,7 @@ To start the app for development, run this command.  This will:
 
 - Run `docker-compose up` to ensure the PostgreSQL and MailCatcher Docker images are up and running
 - Run dotnet watch run which will build the app (if changed), watch for changes and start the web server on http://localhost:5000
-- Run Webpack dev middleware with HMR via [ASP.NET JavaScriptServices](https://github.com/aspnet/JavaScriptServices)
+- Run Webpack dev middleware with HMR
 
 ### `npm run migrate`
 
@@ -63,8 +60,8 @@ This will run the xUnit tests in api.test/ and the Vue.js tests in client-web.te
  This will run the ops/provision.yml Ansible playbook and provision hosts in ops/hosts inventory file.  This prepares the hosts to recieve deployments by doing the following:
   - Install Nginx
   - Generate a SSL certificate from [Let's Encrypt](https://letsencrypt.org/) and configure Nginx to use it
-  - Install .Net Core
-  - Install Supervisor (will run/manage the ASP.NET app)
+  - Install Node.js
+  - Install Supervisor (will run/manage the Node.js/Koa app)
   - Install PostgreSQL
   - Setup a cron job to automatically backup the PostgresSQL database, compress it, and upload it to S3.
   - Setup UFW (firewall) to lock everything down except inbound SSH and web traffic
@@ -76,7 +73,7 @@ _Before running this script, you need to create a ops/hosts file first.  See the
 
 This script will:
  - Build release Webpack bundles
- - Package the .NET Core application in Release mode (dotnet publish)
+ - Package the Node.js/Koa application in Release mode (dotnet publish)
  - Run the ops/deploy.yml Ansible playbook to deploy this app to hosts in /ops/hosts inventory file.  This does the following:
   - Copies the build assets to the remote host(s)
   - Updates the `appsettings.json` file with PostgresSQL credentials specified in ops/hosts file and the app URL (needed for JWT tokens)
@@ -100,7 +97,7 @@ This project has [Visual Studio Code](https://code.visualstudio.com/) tasks and 
 
 With the following debugger launch configs, you can set breakpoints in api/ or the the Mocha tests in client-web.test/ and have full debugging support.
 
-- **Debug api/ (server)** - Runs the vscode debugger (breakpoints) on the api/ .NET Core app
+- **Debug api/ (server)** - Runs the vscode debugger (breakpoints) on the api/ Node.js/Koa app
 - **Debug client-web.test/ (Mocha tests)** - Runs the vscode debugger on the client-web.test/ Mocha tests
 
 ## Credit
