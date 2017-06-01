@@ -1,5 +1,6 @@
 .DS_Store
 
+api/build/
 api/wwwroot/**
 !api/wwwroot/scratch.html
 !api/wwwroot/favicon.ico
