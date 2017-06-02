@@ -42,3 +42,9 @@ new Vue({
     router: router,
     render: h => h(App, {})
 });
+
+// Hot Module Replacement
+declare var module:any;
+if (module.hot) {
+  module.hot.accept();
+}

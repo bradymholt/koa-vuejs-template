@@ -7,10 +7,7 @@
       "port": 5433,
       "username": "postgres",
       "password": "postgres",
-      "database": "dev_database",
-      "extra":{
-
-      }
+      "database": "dev_database"
     },
     "autoMigrationsRun": true,
     "autoSchemaSync": true,
@@ -23,11 +20,11 @@
       "models/*.ts"
     ],
     "migrations": [
-      "migrations/*.ts"
+      "db/migrations/*.ts"
     ],
     "cli": {
       "entitiesDir": "models",
-      "migrationsDir": "migrations"
+      "migrationsDir": "db/migrations"
     }
   }
 ]

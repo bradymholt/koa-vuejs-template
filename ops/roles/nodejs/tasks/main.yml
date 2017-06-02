@@ -1,0 +1,17 @@
+---
+- name: Install nvm
+  shell: >
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | sh
+  args:
+    creates: "{{ ansible_env.HOME}}/.nvm/nvm.sh"
+
+- name: Install Node.js
+  shell: "source {{ ansible_env.HOME}}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+  args:
+    executable: /bin/bash
+
+# Reference: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps
+- name: Install Node.js globally
+  shell: "source {{ ansible_env.HOME}}/.nvm/nvm.sh;n=$(nvm which {{ node_version }});n=${n%/bin/node};chmod -R 755 $n/bin/*;sudo cp -r $n/{bin,lib,share} /usr/local"
+  args:
+    executable: /bin/bash

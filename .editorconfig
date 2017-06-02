@@ -9,4 +9,4 @@ insert_final_newline = true
 indent_size = 2
 
 [*.{js,ts,tsx}]
-indent_size = 4
+indent_size = 2

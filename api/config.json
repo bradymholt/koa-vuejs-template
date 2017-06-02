@@ -1,4 +1,10 @@
 {
     "jwtKey": "cd79cb6c-17b5-4f1b-b4bb-69818069b94e",
-    "port": 5000
+    "port": 5000,
+    "frontEndUrl": "http://localhost:5000",
+    "email": {
+      "smtpConfig": "smtp://:@localhost:1025/?pool=true",
+      "emailFromName": "aspnet-core-vuejs-template",
+      "emailFromAddress": "noreply@aspnet-core-react-template.com"
+    }
 }

@@ -55,6 +55,7 @@ export default class SignIn extends Vue {
       if (!response.is_error) {
         this.$router.push({ path: '/contacts' });
       } else {
+
         this.error = response.error_content.message;
       }
     });

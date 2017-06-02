@@ -21,4 +21,5 @@ ops/*.retry
 
 # other
 *.js.map
+yarn-error.log
 

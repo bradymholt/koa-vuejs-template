@@ -16,7 +16,7 @@
       domainsets:
         - domains:
           - "{{ webserver_name }}"
-    - dotnetcore
+    - nodejs
     - supervisor
     - { role: postgresql, postgresql_server: yes, postgresql_client: yes, postgresql_backup_enabled: yes }
     - role: s3cmd

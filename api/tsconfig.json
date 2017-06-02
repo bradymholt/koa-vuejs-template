@@ -7,13 +7,14 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "allowJs": true,
     "lib": [
       "es2015"
     ],
     "outDir": "build"
   },
   "include": [
-    "./**/*"
+    "./**/*.ts"
   ],
   "exclude": [
     "node_modules"

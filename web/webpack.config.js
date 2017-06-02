@@ -7,7 +7,10 @@ var merge = require('extendify')({ isDeep: true, arrays: 'replace' });
 
 var config = {
     entry: {
-        main: path.join(__dirname, 'boot.ts')
+        main: [
+            'webpack-hot-middleware/client',
+            path.join(__dirname, 'boot.ts')
+        ]
     },
     output: {
         path: path.join(__dirname, '../api/', 'public'),
@@ -52,7 +55,8 @@ var config = {
         ]
     },
     devtool: 'inline-source-map',
-    plugins: [ // plugins should not be empty: https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.SpaServices'[
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'index.template.html'), inject: true
         })
@@ -67,3 +71,4 @@ if (isProductionEnvironment) {
 }
 
 module.exports = config;
+
