@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var releaseConfig = require('./webpack.config.release');
-var isProductionEnvironment = process.env.ASPNETCORE_ENVIRONMENT === 'Production';
+var isProductionEnvironment = process.env.NODE_ENV === 'Production';
 var path = require('path');
 var merge = require('extendify')({ isDeep: true, arrays: 'replace' });
 

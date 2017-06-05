@@ -5,13 +5,18 @@ import * as typeorm from 'typeorm';
 import * as webpack from 'webpack';
 import * as koaWebpackDevMiddleware from 'koa-webpack-dev-middleware';
 import * as koaWebpackHotMiddleware from 'koa-webpack-hot-middleware';
-import spaFallback from './middleware/spaFallback';
-import jwtAuthenticate from './middleware/jwtAuthenticator';
+import spaFallback from './middleware/SpaFallback';
+import jwtAuthenticate from './middleware/JwtAuthenticator';
+import { seedDevelopmentData } from "./db/Seeder";
 
 let config = require('./config.json')
 let isProduction = process.env.NODE_ENV === "production";
 
-typeorm.createConnection("default", __dirname + "/ormconfig.json");
+typeorm.createConnection("default", __dirname + "/ormconfig.json").then(() => {
+  if (!isProduction) {
+    seedDevelopmentData();
+  }
+});
 
 const app: Koa = createKoaServer({
   development: !isProduction,
@@ -20,7 +25,7 @@ const app: Koa = createKoaServer({
   controllers: [__dirname + "/controllers/*.ts"],
   authorizationChecker: jwtAuthenticate
 });
-
+``
 if (!isProduction) {
   let webpackConfig = require("../web/webpack.config.js");
   let compiler = webpack([webpackConfig]);

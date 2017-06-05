@@ -32,6 +32,5 @@ var config = {
             }
         }),
         new ExtractTextPlugin("styles.css")
-
     ]
 };

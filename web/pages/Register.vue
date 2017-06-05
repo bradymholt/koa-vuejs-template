@@ -5,12 +5,12 @@
       <div v-if="errors.general" class="alert alert-danger" role="alert">
         {{indexedErrors.general}}
       </div>
-      <div v-bind:class="{ 'has-danger': errors.email }" class="form-group">
+      <div v-bind:class="{ 'has-danger': indexedErrors.email }" class="form-group">
         <label htmlFor="inputEmail">Email address</label>
         <input type="email" id="inputEmail" v-model="email" class="form-control" placeholder="Email address" />
         <div class="form-control-feedback">{{ indexedErrors.email }}</div>
       </div>
-      <div v-bind:class="{ 'has-danger': errors.password }" class="form-group">
+      <div v-bind:class="{ 'has-danger': indexedErrors.password }" class="form-group">
         <label htmlFor="inputPassword">Password</label>
         <input type="password" id="inputPassword" v-model="password" class="form-control" placeholder="Password" />
         <div class="form-control-feedback">{{ indexedErrors.password }}</div>

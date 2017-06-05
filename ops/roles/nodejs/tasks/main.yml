@@ -7,11 +7,16 @@
 
 - name: Install Node.js
   shell: "source {{ ansible_env.HOME}}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+  notify: Stop supervisor app
   args:
     executable: /bin/bash
+
+- notify: Stop supervisor app
+  meta: flush_handlers
 
 # Reference: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps
 - name: Install Node.js globally
   shell: "source {{ ansible_env.HOME}}/.nvm/nvm.sh;n=$(nvm which {{ node_version }});n=${n%/bin/node};chmod -R 755 $n/bin/*;sudo cp -r $n/{bin,lib,share} /usr/local"
+  notify: Restart supervisor app
   args:
     executable: /bin/bash

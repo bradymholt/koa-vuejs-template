@@ -7,7 +7,7 @@ server {
   gzip_proxied any;
   gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-  root {{ deploy_directory }}/wwwroot;
+  root {{ web_root_directory }};
   index index.html;
 
   # Root path (to be served by Nginx)
@@ -20,9 +20,9 @@ server {
       access_log off;
   }
 
-  # Dynamic content (to be served by Kestrel)
+  # Dynamic content
   location / {
-        proxy_pass http://localhost:5000;
+        proxy_pass http://localhost:{{app_port}};
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection keep-alive;

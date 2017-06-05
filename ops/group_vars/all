@@ -1,4 +1,15 @@
 ---
+ansible_python_interpreter: /usr/bin/python3
+
+# Global variables
+app_name: "KoaVueTemplate"
+source_directory: "../../api/"
+package_json_file: "../package.json"
+start_command: "node ./node_modules/.bin/ts-node -F server.ts"
+web_root_directory: "{{ deploy_directory }}/public"
+config_file: "config.json"
+ormconfig_file: "ormconfig.json"
+app_port: 5000
 database_name: "{{ app_name }}"
 database_username: "{{ app_name }}"
 deploy_directory: "/home/{{ deploy_user }}/apps/{{ app_name }}"
@@ -10,4 +21,3 @@ use_ssl: false
 letsencrypt_use_live_ca: false
 webserver_user: www-data
 webserver_name: "{{ inventory_hostname }}"
-

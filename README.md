@@ -20,11 +20,11 @@ This app is a template application using Koa for a REST/JSON API server and Vue.
   - Ansible playbook for provisioning (Nginx reverse proxy, SSL via Let's Encrypt, PostgresSQL backups to S3)
   - Ansible playbook for deployment
 
-## Setup
+## Development Setup
 
 1. Install the following:
    - [Node.js >= v7.8.0](https://nodejs.org/en/download/)
-   - [Ansible >= 2.0](http://docs.ansible.com/ansible/intro_installation.html)
+   - [Ansible >= 2.3.1.0](http://docs.ansible.com/ansible/intro_installation.html) (`pip install ansible --upgrade` to upgrade)
    - [Docker](https://docs.docker.com/engine/installation/)
 2. Run `npm install && npm start`
 3. Open browser and navigate to [http://localhost:5000](http://localhost:5000).

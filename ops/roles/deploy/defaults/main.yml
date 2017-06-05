@@ -1,2 +1,4 @@
 ---
-appsetting_file: appsettings.json
+config_file: config.json
+app_port: 5000
+postgresql_port: 5432

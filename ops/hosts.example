@@ -1,9 +1,3 @@
-# Global variables
-[all:vars]
-app_name=aspnetCoreReactTemplate                                          # Name of the application
-source_directory=../../../../appName/bin/Release/netcoreapp1.1/publish/   # The local deploy build asset source location (source files for deploy)
-entry_dll_file_name=AppName.dll                                           # The name of the .NET Core DLL to run
-
 # Production variables
 [production_web]
 0.0.0.0                                   # The IP address or hostname of the production web server
@@ -22,6 +16,5 @@ email_from_address=demo@gmail.com         # The email address for outgoing email
 
 [production:children]
 production_web
-
 [all:children]
 production

@@ -22,6 +22,7 @@
     - postgresql-contrib
     - postgresql-server-dev-all
     - python-dev
+    - python3-pip
   when: postgresql_server
   tags:
     - software-installation
@@ -37,7 +38,7 @@
   tags:
     - software-installation
     - using-pip
-    
+
 - name: Install Packages | apt
   apt:
     state: latest

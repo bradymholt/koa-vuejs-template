@@ -1,33 +1,68 @@
 - name: Copy app files
   synchronize: src={{source_directory}} dest={{ deploy_directory }} delete=yes rsync_opts=--exclude=.git/
-  notify: Reload supervisor app config
+  notify: Restart supervisor app
 
-- name: Configure PostgresSQL connection string
-  lineinfile: dest="{{ deploy_directory }}/{{ appsetting_file }}"
-    regexp="defaultConnection\":"
-    line="\"defaultConnection\"{{':'}} \"Host=127.0.0.1;Username={{database_username}};Password={{database_password}};Database={{database_name}}\""
+- name: Copy package.json
+  copy:
+    src: "{{ package_json_file }}"
+    dest: "{{ deploy_directory }}/package.json"
+
+- name: npm install
+  command: "npm install --production"
+  args:
+    chdir: "{{ deploy_directory }}"
+  ignore_errors: yes
+
+- name: Configure PostgresSQL port
+  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
+    regexp="port\":"
+    line="\"port\"{{':'}} {{ postgresql_port }},"
+    state="present"
+
+- name: Configure PostgresSQL username
+  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
+    regexp="username\":"
+    line="\"username\"{{':'}} \"{{ database_username }}\","
+    state="present"
+
+- name: Configure PostgresSQL password
+  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
+    regexp="password\":"
+    line="\"password\"{{':'}} \"{{ database_password }}\","
+    state="present"
+
+- name: Configure PostgresSQL database
+  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
+    regexp="database\":"
+    line="\"database\"{{':'}} \"{{ database_name }}\""
     state="present"
 
 - name: Configure email.smtpConfig
-  lineinfile: dest="{{ deploy_directory }}/{{ appsetting_file }}"
+  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
     regexp="smtpConfig\":"
     line="\"smtpConfig\"{{':'}} \"{{smtp_config}}\","
     state="present"
 
 - name: Configure email.emailFromName
-  lineinfile: dest="{{ deploy_directory }}/{{ appsetting_file }}"
+  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
     regexp="emailFromName\":"
     line="\"emailFromName\"{{':'}} \"{{email_from_name}}\","
     state="present"
 
 - name: Configure email.emailFromAddress
-  lineinfile: dest="{{ deploy_directory }}/{{ appsetting_file }}"
+  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
     regexp="emailFromAddress\":"
     line="\"emailFromAddress\"{{':'}} \"{{email_from_address}}\""
     state="present"
 
+- name: Configure app port
+  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
+    regexp="port\":"
+    line="\"port\"{{':'}} {{ app_port }},"
+    state="present"
+
 - name: Configure app url
-  lineinfile: dest="{{ deploy_directory }}/{{ appsetting_file }}"
+  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
     regexp="frontEndUrl\":"
     line="\"frontEndUrl\"{{':'}} \"http://{{webserver_name}}/\","
     state="present"
