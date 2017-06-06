@@ -13,56 +13,5 @@
     chdir: "{{ deploy_directory }}"
   ignore_errors: yes
 
-- name: Configure PostgresSQL port
-  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
-    regexp="port\":"
-    line="\"port\"{{':'}} {{ postgresql_port }},"
-    state="present"
-
-- name: Configure PostgresSQL username
-  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
-    regexp="username\":"
-    line="\"username\"{{':'}} \"{{ database_username }}\","
-    state="present"
-
-- name: Configure PostgresSQL password
-  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
-    regexp="password\":"
-    line="\"password\"{{':'}} \"{{ database_password }}\","
-    state="present"
-
-- name: Configure PostgresSQL database
-  lineinfile: dest="{{ deploy_directory }}/{{ ormconfig_file }}"
-    regexp="database\":"
-    line="\"database\"{{':'}} \"{{ database_name }}\""
-    state="present"
-
-- name: Configure email.smtpConfig
-  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
-    regexp="smtpConfig\":"
-    line="\"smtpConfig\"{{':'}} \"{{smtp_config}}\","
-    state="present"
-
-- name: Configure email.emailFromName
-  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
-    regexp="emailFromName\":"
-    line="\"emailFromName\"{{':'}} \"{{email_from_name}}\","
-    state="present"
-
-- name: Configure email.emailFromAddress
-  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
-    regexp="emailFromAddress\":"
-    line="\"emailFromAddress\"{{':'}} \"{{email_from_address}}\""
-    state="present"
-
-- name: Configure app port
-  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
-    regexp="port\":"
-    line="\"port\"{{':'}} {{ app_port }},"
-    state="present"
-
-- name: Configure app url
-  lineinfile: dest="{{ deploy_directory }}/{{ config_file }}"
-    regexp="frontEndUrl\":"
-    line="\"frontEndUrl\"{{':'}} \"http://{{webserver_name}}/\","
-    state="present"
+- name: Create api/config/local-production.yml file
+  copy: content="{{ api_config | to_nice_yaml }}" dest="{{ deploy_directory }}/config/local-production.yml"

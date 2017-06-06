@@ -7,22 +7,22 @@ import { IContact } from '../interfaces/IContact';
 
 @Entity()
 export default class Contact implements IContact {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    @Length(0, 20)
-    firstName: string;
+  @Column()
+  @MinLength(3)
+  lastName: string;
 
-    @Column()
-    @Length(0, 20)
-    lastName: string;
+  @Column()
+  @MinLength(1)
+  firstName: string;
 
-    @Column()
-    @IsOptional() @IsEmail()
-    email: string;
+  @Column()
+  @IsOptional() @MinLength(7)
+  phone: string;
 
-    @Column()
-    @IsOptional() @MinLength(7)
-    phone: string;
+  @Column()
+  @IsOptional() @IsEmail()
+  email: string;
 }

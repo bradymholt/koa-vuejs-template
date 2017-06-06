@@ -1,15 +1,14 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
 
-# Global variables
+# Global config variables
 app_name: "KoaVueTemplate"
 source_directory: "../../api/"
 package_json_file: "../package.json"
 start_command: "node ./node_modules/.bin/ts-node -F server.ts"
 web_root_directory: "{{ deploy_directory }}/public"
-config_file: "config.json"
-ormconfig_file: "ormconfig.json"
-app_port: 5000
+bind_port: 5000
+postgresql_port: 5432
 database_name: "{{ app_name }}"
 database_username: "{{ app_name }}"
 deploy_directory: "/home/{{ deploy_user }}/apps/{{ app_name }}"
@@ -21,3 +20,21 @@ use_ssl: false
 letsencrypt_use_live_ca: true # If true, will use the Live Let's Encrypt ACME servers; otherwise will use staging server
 webserver_user: www-data
 webserver_name: "{{ inventory_hostname }}"
+
+# The contents of api_config: below get written to {{ deploy_directory }}/config/local-production.yml and override config during runtime
+api_config:
+  bind_port: "{{ bind_port }}"
+  frontend_url: "http://{{webserver_name}}"
+  database:
+    driver:
+      port: "{{ postgresql_port }}"
+      username: "{{ database_username }}"
+      password: "{{ database_password }}"
+      database: "{{ database_name }}"
+  jwt:
+    key: "{{ jwt_key }}"
+  email:
+    smtp_config: "{{ smtp_config }}"
+    email_from_name: "{{ email_from_name }}"
+    email_from_address: "{{ email_from_address }}"
+

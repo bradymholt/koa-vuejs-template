@@ -32,7 +32,7 @@ export function IsOptional(validationOptions?: ValidationOptions) {
 
 export function MinLength(min: number, validationOptions?: ValidationOptions) {
   return classValidator.MinLength(min, Object.assign({
-    message: "must be at least $constraint1 characters"
+    message: min == 1 ? "is required" : "must be at least $constraint1 characters"
   }, validationOptions));
 }
 

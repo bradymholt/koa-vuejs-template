@@ -2,25 +2,40 @@ import { getConnection } from "typeorm";
 import * as bcrypt from "bcryptjs";
 
 import User from "../models/User";
+import Contact from "../models/Contact";
 
-export async function seedDevelopmentData() {
+export async function seedTestData() {
   let connection = getConnection();
-  let userRepo = connection.getRepository(User);
 
   // Create test user
   let email = "user@test.com";
   let password = "P2ssw0rd!";
 
-  let testUser = await userRepo.createQueryBuilder("u").
-    where("u.email = :email", { email }).
-    getOne();
+  let user1 = new User()
+  user1.email = email;
+  let hashedPassword = await bcrypt.hash(password, 3);
+  user1.hashedPassword = hashedPassword;
+  user1.emailConfirmed = true;
 
-  if (!testUser) {
-    let newUser = new User()
-    newUser.email = email;
-    let hashedPassword = await bcrypt.hash(password, 3);
-    newUser.hashedPassword = hashedPassword;
-    newUser.emailConfirmed = true;
-    await userRepo.persist(newUser);
-  }
+  let userRepo = connection.getRepository(User);
+  await userRepo.persist(user1);
+
+  // Create test contacts
+  let contact1 = new Contact();
+  contact1.id = 1;
+  contact1.lastName = "Finkley";
+  contact1.firstName = "Adam";
+  contact1.phone = "555-555-5555";
+  contact1.email = "adam@somewhere.com";
+
+  let contact2 = new Contact();
+  contact2.id = 2;
+  contact2.lastName = "Biles";
+  contact2.firstName = "Steven";
+  contact2.phone = "555-555-5555";
+  contact2.email = "sbiles@somewhere.com";
+
+  let contactRepo = connection.getRepository(Contact);
+  await contactRepo.persist(contact1);
+  await contactRepo.persist(contact2);
 }

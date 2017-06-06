@@ -5,6 +5,7 @@ import { Ctx } from "routing-controllers/decorator/Ctx";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
 import { getConnection } from "typeorm";
+import * as config from 'config';
 
 import AuthCredentials from "../models/AuthCredentials";
 import User from "../models/User";
@@ -19,7 +20,6 @@ export default class ContactController {
 
   @Post("/login")
   async login( @Body() credentials: AuthCredentials) {
-    let config = require('../config.json');
     let invalidCredentialsMessage = "The email or password is invalid!";
 
     let user = await this.getRepo().createQueryBuilder("u").
@@ -35,7 +35,7 @@ export default class ContactController {
         throw new BadRequestError("You must have a confirmed email to log in.");
       }
 
-      let token = jwt.sign({ userId: '1' }, config.jwtKey, { expiresIn: '1h' });
+      let token = jwt.sign({ userId: '1' }, config.get("jwt.key"), { expiresIn: config.get("jwt.expiry") });
       return { token };
     } else {
       throw new BadRequestError(invalidCredentialsMessage);
@@ -45,8 +45,6 @@ export default class ContactController {
   @Post("/register")
   @OnUndefined(204)
   async register( @Body() credentials: AuthCredentialsNew, @Ctx() ctx: Koa.Context) {
-    let config = require('../config.json');
-
     // Create a new user
     let newUser = new User()
     newUser.email = credentials.email;
@@ -55,18 +53,17 @@ export default class ContactController {
     await this.getRepo().persist(newUser);
 
     // Send confirmation email
-    let confirmEmailToken = jwt.sign({ userId: newUser.id }, config.jwtKey, { expiresIn: '20m' });
-    let emailConfirmUrl = `${config.frontEndUrl}/api/auth/confirm?token=${confirmEmailToken}`;
+    let confirmEmailToken = jwt.sign({ userId: newUser.id }, config.get("jwt.key"), { expiresIn: config.get("jwt.expiry") });
+    let emailConfirmUrl = `${config.get("frontend_url")}/api/auth/confirm?token=${confirmEmailToken}`;
     await EmailHelper.sendEmail(newUser.email, "Please confirm your account", `Please confirm your account by clicking this <a href=\"${emailConfirmUrl}\">link</a>.`);
   }
 
   @Get("/confirm")
   async confirm( @QueryParam("token") token: string, @Ctx() ctx: Koa.Context) {
-    let config = require('../config.json');
     let redirectUrl = null;
 
     try {
-      let decodedToken = jwt.verify(token, config.jwtKey);
+      let decodedToken = jwt.verify(token, config.get("jwt.key"));
       let repo = this.getRepo();
       let user = await repo.findOneById(decodedToken.userId);
       user.emailConfirmed = true;

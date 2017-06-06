@@ -6,8 +6,7 @@
   "scripts": {
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
-    "migrations:run": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:run",
-    "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -n",
+    "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
     "test:api": "mocha --require ignore-styles --recursive api/build/api.test",
     "pretest:client": "./node_modules/typescript/bin/tsc -p ./web/",
     "test:client": "mocha --require ignore-styles --recursive web/build/web.test",
@@ -22,6 +21,7 @@
   "devDependencies": {
     "@types/bcrypt": "^1.0.0",
     "@types/chai": "^3.4.32",
+    "@types/config": "^0.0.32",
     "@types/koa": "^2.0.39",
     "@types/mocha": "^2.2.31",
     "@types/node": "^7.0.22",
@@ -44,11 +44,13 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "config": "^1.26.1",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.22.0",
     "import": "^0.0.6",
+    "js-yaml": "^3.8.4",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",

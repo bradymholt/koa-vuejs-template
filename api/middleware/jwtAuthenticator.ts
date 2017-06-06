@@ -1,6 +1,7 @@
 import { Action } from "routing-controllers";
 import { getConnection } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
+import * as config from 'config';
 
 import Contact from "../models/Contact";
 
@@ -11,12 +12,11 @@ export default async function authenticate(action: Action, roles: string[]) {
     isAuthorized = false;
   }
   else {
-    const config = require('../config.json');
     let decodedToken: any = null;
     token = token.replace("Bearer ", "");
 
     try {
-      decodedToken = jwt.verify(token, config.jwtKey);
+      decodedToken = jwt.verify(token, config.get("jwt.key"));
       action.context.state.currentUserId = decodedToken.userId;
       isAuthorized = (decodedToken.userId);
     }

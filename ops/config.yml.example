@@ -3,11 +3,12 @@ production:
     104.232.17.155
   vars:
     # Base config is located in ./group_vars/all
-    deploy_user: jdoe                            # The name of the remote user account for provisioning and deployment
-    gh_pubkey_user: johndoe1981                  # The GitHub username used to pull the public key for deploy_user authorized_user access
-    use_ssl: true                                # If true, SSL cert will be obtained from Let's Encrypt and Nginx provisioned for SSL
-    database_password: super!secret              # PostgreSQL database will be configured with this password
-    s3_key: ABCDEFGHIJKLMNOP                     # S3 Access Key used for uploading PostgreSQL backups
-    s3_secret: ABCDEFGHIJKLMNOP                  # S3 Access Secret used for uploading PostgreSQL backups
-    smtp_config: user:pass@smtp.domain.com:587   # The SMTP configuration for sending outgoing mail
-    email_from_address: demo@gmail.com           # The email address for outgoing email
+    deploy_user: jdoe                                   # The name of the remote user account for provisioning and deployment
+    gh_pubkey_user: johndoe1981                         # The GitHub username used to pull the public key for deploy_user authorized_user access
+    use_ssl: true                                       # If true, SSL cert will be obtained from Let's Encrypt and Nginx provisioned for SSL
+    s3_key: ABCDEFGHIJKLMNOP                            # S3 Access Key used for uploading PostgreSQL backups
+    s3_secret: ABCDEFGHIJKLMNOP                         # S3 Access Secret used for uploading PostgreSQL backups
+    database_password: super!secret                     # PostgreSQL database will be configured with this password
+    jwt_key: 20833471-63fc-4330-a76a                    # The JWT token key
+    smtp_config: smtp://user:pass@smtp.domain.com:587   # The SMTP configuration for sending outgoing mail
+    email_from_address: demo@gmail.com                  # The email address for outgoing email

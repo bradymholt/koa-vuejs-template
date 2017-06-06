@@ -1,17 +1,18 @@
 import * as nodemailer from "nodemailer";
+import * as config from 'config';
 
 export default class EmailHelper {
   static sendEmail(toAddress: string, subject: string, text: string, html?: string) {
     return new Promise((resolve, reject) => {
-      let config = require('../config.json');
-      let transporter = nodemailer.createTransport(config.email.smtpConfig);
+
+      let transporter = nodemailer.createTransport(config.get("email.smtp_config"));
 
       let mailOptions = {
-        from: `"${config.email.emailFromName}" <${config.email.emailFromAddress}>`,
+        from: `"${config.get("email.from_name")}" <${config.get("email.from_address")}>`,
         to: toAddress,
         subject: subject,
         text: text,
-        html: html
+        html: html ? html : text
       };
 
       transporter.sendMail(mailOptions, (error, info) => {

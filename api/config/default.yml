@@ -1,0 +1,32 @@
+debug_logging: true
+bind_port: 5000
+frontend_url: http://localhost:5000
+database:
+  seed_test_data: true
+  driver:
+    type: postgres
+    host: localhost
+    port: 5433
+    username: postgres
+    password: postgres
+    database: dev_database
+  autoMigrationsRun: true
+  autoSchemaSync: true
+  logging:
+    logSchemaCreation: true
+    logFailedQueryError: true
+    logQueries: true
+  entities:
+    - models/*.ts
+  migrations:
+    - db/migrations/*.ts
+jwt:
+  key: cd79cb6c-17b5-4f1b-b4bb-69818069b94e
+  expiry: 1h
+webpack_middleware:
+  enabled: true
+  config_path: /../web/webpack.config.js
+email:
+  smtp_config: smtp://:@localhost:1025/?pool=true
+  from_name: aspnet-core-vuejs-template
+  from_address: noreply@aspnet-core-react-template.com
