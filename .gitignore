@@ -1,9 +1,8 @@
 .DS_Store
 
 api/build/
-api/wwwroot/**
-!api/wwwroot/scratch.html
-!api/wwwroot/favicon.ico
+api/public/**
+!api/public/favicon.ico
 
 # node
 node_modules/

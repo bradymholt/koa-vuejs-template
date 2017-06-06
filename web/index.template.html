@@ -12,8 +12,8 @@
   <div class="container" id='app'></div>
 
   <%if (htmlWebpackPlugin.options.useCdn) { %>
-    <script src="https://unpkg.com/vue@2.2.6"></script>
-    <script src="https://unpkg.com/vue-router@2.3.1"></script>
+    <script src="https://unpkg.com/vue@<%= htmlWebpackPlugin.options.vueVersion %>"></script>
+    <script src="https://unpkg.com/vue-router@<%= htmlWebpackPlugin.options.vueRouterVersion %>"></script>
     <% } %>
 
       <!-- Scripts will be injected here -->

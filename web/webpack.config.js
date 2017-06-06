@@ -1,74 +1,64 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var releaseConfig = require('./webpack.config.release');
-var isProductionEnvironment = process.env.NODE_ENV === 'Production';
-var path = require('path');
-var merge = require('extendify')({ isDeep: true, arrays: 'replace' });
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var path = require("path");
 
 var config = {
-    entry: {
-        main: [
-            'webpack-hot-middleware/client',
-            path.join(__dirname, 'boot.ts')
-        ]
-    },
-    output: {
-        path: path.join(__dirname, '../api/', 'public'),
-        filename: '[name].js',
-        publicPath: '/'
-    },
-    resolve: {
-        extensions: ['.ts', '.js', '.vue', '.styl', '.css']
-    },
-    module: {
-        rules: [
-            {
-                test: /\.styl$/,
-                use: [{
-                    loader: 'style-loader'
-                }, {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                        camelCase: true,
-                        importLoaders: 2,
-                        sourceMap: false,
-                        localIdentName: "[local]___[hash:base64:5]"
-                    }
-                }, {
-                    loader: 'stylus-loader'
-                }]
-            },
-            {
-                test: /\.ts$/,
-                loader: 'ts-loader',
-                options: {
-                    appendTsSuffixTo: [/\.vue$/]
-                }
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            },
-            { test: /\.css/, loader: 'style-loader!css-loader' },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
-        ]
-    },
-    devtool: 'inline-source-map',
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'index.template.html'), inject: true
-        })
-        // new webpack.NamedModulesPlugin()
-        // We do not use ExtractTextPlugin in development mode so that HMR will work with styles
+  entry: {
+    main: [
+      path.join(__dirname, "boot.ts")
     ]
+  },
+  output: {
+    path: path.join(__dirname, "../api/", "public"),
+    filename: "[name].js",
+    publicPath: "/"
+  },
+  devtool: "cheap-module-source-map",
+  resolve: {
+    extensions: [".ts", ".js", ".vue", ".styl", ".css"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: "ts-loader",
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+        options: {
+          loaders: {
+            stylus: ExtractTextPlugin.extract({
+              fallback: "vue-style-loader",
+              use: [{
+                loader: "css-loader",
+                options: {
+                  sourceMap: true,
+                  minimize: true
+                }
+              }, {
+                loader: "stylus-loader"
+              }]
+            })
+          }
+        }
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000" }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin({
+      disable: true
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "index.template.html"),
+      inject: true
+    })
+  ]
 };
 
-if (isProductionEnvironment) {
-    // Merge production config
-    config = merge(config, releaseConfig);
-}
-
 module.exports = config;
-

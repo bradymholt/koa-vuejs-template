@@ -1,12 +1,10 @@
 import * as Koa from 'koa';
 import * as serve from 'koa-static';
-import { createKoaServer } from "routing-controllers";
 import * as typeorm from 'typeorm';
-import * as webpack from 'webpack';
-import * as koaWebpackDevMiddleware from 'koa-webpack-dev-middleware';
-import * as koaWebpackHotMiddleware from 'koa-webpack-hot-middleware';
-import spaFallback from './middleware/SpaFallback';
-import jwtAuthenticate from './middleware/JwtAuthenticator';
+import { createKoaServer } from "routing-controllers";
+import SpaFallback from './middleware/SpaFallback';
+import JwtAuthenticate from './middleware/JwtAuthenticator';
+import boostrapWebpackMiddleware from './middleware/Webpack';
 import { seedDevelopmentData } from "./db/Seeder";
 
 let config = require('./config.json')
@@ -23,16 +21,14 @@ const app: Koa = createKoaServer({
   classTransformer: true,
   validation: { skipMissingProperties: true, validationError: { target: false, value: false } },
   controllers: [__dirname + "/controllers/*.ts"],
-  authorizationChecker: jwtAuthenticate
+  authorizationChecker: JwtAuthenticate
 });
-``
+
+app.use(SpaFallback("api", "/"));
+
 if (!isProduction) {
-  let webpackConfig = require("../web/webpack.config.js");
-  let compiler = webpack([webpackConfig]);
-  app.use(koaWebpackDevMiddleware(compiler)).
-    use(koaWebpackHotMiddleware(compiler));
+  boostrapWebpackMiddleware(app, __dirname + "/../web/webpack.config.js");
 }
 
-app.use(spaFallback("api", "/")).
-  use(serve(__dirname + '/public')).
-  listen(config.port);
+app.use(serve(__dirname + '/public'));
+app.listen(config.port);
