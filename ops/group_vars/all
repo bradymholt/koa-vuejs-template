@@ -5,7 +5,7 @@ ansible_python_interpreter: /usr/bin/python3
 app_name: "KoaVueTemplate"
 source_directory: "../../api/"
 package_json_file: "../package.json"
-start_command: "node ./node_modules/.bin/ts-node -F server.ts"
+start_command: "node ./node_modules/ts-node/dist/_bin.js -F server.ts"
 web_root_directory: "{{ deploy_directory }}/public"
 bind_port: 5000
 postgresql_port: 5432

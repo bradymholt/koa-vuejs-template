@@ -8,10 +8,9 @@
     dest: "{{ deploy_directory }}/package.json"
 
 - name: npm install
-  command: "npm install --production"
+  shell: "npm install --production || true"
   args:
     chdir: "{{ deploy_directory }}"
-  ignore_errors: yes
 
 - name: Create api/config/local-production.yml file
   copy: content="{{ api_config | to_nice_yaml }}" dest="{{ deploy_directory }}/config/local-production.yml"
