@@ -6,6 +6,7 @@
   "scripts": {
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
+    "start:production": "node ./node_modules/ts-node/dist/_bin.js -F ./server.ts",
     "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
     "provision:production": "ansible-playbook -l production -i ./ops/config.yml ./ops/provision.yml",
     "prerelease": "webpack --config ./client-web/webpack.config.production.js",
