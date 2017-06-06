@@ -18,6 +18,6 @@ postgresql_backup_to_s3: true  # If true, PostgresSQL backups will be moved to S
 s3_bucket_name: "s3://app.{{ app_name }}"
 s3_db_backup_location: "{{ s3_bucket_name }}/db_backups"
 use_ssl: false
-letsencrypt_use_live_ca: false # If true, will use the Live Let's Encrypt ACME servers; otherwise will use staging server
+letsencrypt_use_live_ca: true # If true, will use the Live Let's Encrypt ACME servers; otherwise will use staging server
 webserver_user: www-data
 webserver_name: "{{ inventory_hostname }}"
