@@ -14,6 +14,7 @@ config.externals = {
   'vue-router': 'VueRouter'
 };
 config.devtool = 'source-map';
+
 // Note: We are *replacing* the plugin config here.
 config.plugins = [
   new ExtractTextPlugin("styles.css"),
