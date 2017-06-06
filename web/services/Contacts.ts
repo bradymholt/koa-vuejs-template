@@ -1,5 +1,5 @@
 import RestUtilities from './RestUtilities';
-import c from '../../shared/interfaces/IContact';
+import c from '../../api/interfaces/IContact';
 export import IContact = c.IContact;
 
 export default class Contacts {
