@@ -25,7 +25,7 @@ jwt:
   expiry: 1h
 webpack_middleware:
   enabled: true
-  config_path: /../web/webpack.config.js
+  config_path: /../client-web/webpack.config.js
 email:
   smtp_config: smtp://:@localhost:1025/?pool=true
   from_name: aspnet-core-vuejs-template

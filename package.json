@@ -7,12 +7,8 @@
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
     "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
-    "test:api": "mocha --require ignore-styles --recursive api/build/api.test",
-    "pretest:client": "./node_modules/typescript/bin/tsc -p ./web/",
-    "test:client": "mocha --require ignore-styles --recursive web/build/web.test",
-    "test": "npm run test:api && npm run test:web",
     "provision:production": "ansible-playbook -l production -i ./ops/config.yml ./ops/provision.yml",
-    "prerelease": "webpack --config ./web/webpack.config.production.js",
+    "prerelease": "webpack --config ./client-web/webpack.config.production.js",
     "deploy:production": "npm run prerelease && ansible-playbook -l production -i ./ops/config.yml ./ops/deploy.yml",
     "ssh:production": "ssh `grep -A2 'hosts' ./ops/config.yml | tail -n +2 | head -n 1`"
   },

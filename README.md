@@ -55,7 +55,7 @@ This will run the xUnit tests in api.test/ and the Vue.js tests in client-web.te
 
 ### `npm run provision:prod`
 
- _Before running this script, you need to create an ops/hosts file first.  See the [ops README](ops/) for instructions._
+ _Before running this script, you need to create an ops/config.yml file first.  See the [ops README](ops/) for instructions._
 
  This will run the ops/provision.yml Ansible playbook and provision hosts in ops/hosts inventory file.  This prepares the hosts to recieve deployments by doing the following:
   - Install Nginx
@@ -69,7 +69,7 @@ This will run the xUnit tests in api.test/ and the Vue.js tests in client-web.te
 
 ### `npm run deploy:prod`
 
-_Before running this script, you need to create a ops/hosts file first.  See the [ops README](ops/) for instructions._
+_Before running this script, you need to create a ops/config.yml file first.  See the [ops README](ops/) for instructions._
 
 This script will:
  - Build release Webpack bundles
