@@ -1,6 +1,6 @@
-import RestUtilities from './RestUtilities';
-import c from '../../api/interfaces/IContact';
-export import IContact = c.IContact;
+import RestUtilities from "./RestUtilities";
+import { IContact } from "../../api/models/Contact";
+export { IContact };
 
 export default class Contacts {
     fetchAll() {

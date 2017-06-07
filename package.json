@@ -1,16 +1,19 @@
 {
   "name": "koa.vuejs.template",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
-    "start:production": "node ./node_modules/ts-node/dist/_bin.js -F ./server.ts",
+    "start:production": "NODE_ENV=production node server.js",
     "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
+    "build": "tsc -p ./api; webpack --config ./client-web/webpack.config.production.js; cp -r {package.json,./api/config} ./api/build",
     "provision:production": "ansible-playbook -l production -i ./ops/config.yml ./ops/provision.yml",
-    "prerelease": "webpack --config ./client-web/webpack.config.production.js",
-    "deploy:production": "npm run prerelease && ansible-playbook -l production -i ./ops/config.yml ./ops/deploy.yml",
+    "deploy:production": "npm run build && ansible-playbook -l production -i ./ops/config.yml ./ops/deploy.yml",
     "ssh:production": "ssh `grep -A2 'hosts' ./ops/config.yml | tail -n +2 | head -n 1`"
   },
   "author": "Brady Holt",

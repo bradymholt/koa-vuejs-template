@@ -10,7 +10,7 @@ var config = {
     ]
   },
   output: {
-    path: path.join(__dirname, "../api/", "public"),
+    path: path.join(__dirname, "../api/build/public"),
     filename: "[name].js",
     publicPath: "/"
   },

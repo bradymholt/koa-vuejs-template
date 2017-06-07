@@ -13,7 +13,7 @@ import EmailHelper from "../helpers/EmailHelper";
 import AuthCredentialsNew from "../models/AuthCredentialsNew";
 
 @JsonController("/api/auth")
-export default class ContactController {
+export default class AuthController {
   private getRepo() {
     return getConnection().getRepository(User);
   }

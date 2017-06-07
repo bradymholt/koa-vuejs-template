@@ -1,11 +1,6 @@
 - name: Copy app files
-  synchronize: src={{source_directory}} dest={{ deploy_directory }} delete=no rsync_opts=--exclude=.git/
+  synchronize: src={{source_directory}} dest={{ deploy_directory }} delete=yes rsync_opts=--exclude=.git/
   notify: Restart supervisor app
-
-- name: Copy package.json
-  copy:
-    src: "{{ package_json_file }}"
-    dest: "{{ deploy_directory }}/package.json"
 
 - name: npm install
   shell: "npm install --production || true"

@@ -1,4 +1,6 @@
 ---
+postgresql_version: '9.5'
+
 postgresql_client: no
 postgresql_server: no
 

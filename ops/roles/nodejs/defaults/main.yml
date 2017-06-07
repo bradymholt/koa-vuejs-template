@@ -1,3 +1,2 @@
 ---
-user: '{{ ansible_user_id }}'
 node_version: '8.0'

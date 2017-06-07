@@ -12,8 +12,8 @@
     ],
     "outDir": "build"
   },
-  "files": [
-    "./server.ts"
+  "include": [
+    "./**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,27 +1,33 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
 
-# Global config variables
 app_name: "KoaVueTemplate"
-source_directory: "../../api/"
-package_json_file: "../package.json"
-start_command: "npm run start:production"
+
+# Web Server (Nginx)
+webserver_user: www-data
+webserver_name: "{{ inventory_hostname }}"
 web_root_directory: "{{ deploy_directory }}/public"
-bind_port: 5000
+use_ssl: false
+letsencrypt_use_live_ca: true # If true, will use the Live Let's Encrypt ACME servers; otherwise will use staging server
+
+# Database (PostgreSQL)
+postgresql_version: "9.5"
 postgresql_port: 5432
-database_name: "{{ app_name }}"
 database_username: "{{ app_name }}"
-deploy_directory: "/home/{{ deploy_user }}/apps/{{ app_name }}"
-email_from_name: "{{ app_name }}"
+database_name: "{{ app_name }}"
 postgresql_backup_to_s3: true  # If true, PostgresSQL backups will be moved to S3 storage
 s3_bucket_name: "s3://app.{{ app_name }}"
 s3_db_backup_location: "{{ s3_bucket_name }}/db_backups"
-use_ssl: false
-letsencrypt_use_live_ca: true # If true, will use the Live Let's Encrypt ACME servers; otherwise will use staging server
-webserver_user: www-data
-webserver_name: "{{ inventory_hostname }}"
 
-# The contents of api_config: below get written to {{ deploy_directory }}/config/local-production.yml and override config during runtime
+# API (Node.js)
+node_version: "8.0"
+bind_port: 5000
+source_directory: "../../api/build/"
+start_command: "npm run start:production"
+deploy_directory: "/home/{{ deploy_user }}/apps/{{ app_name }}"
+email_from_name: "{{ app_name }}"
+
+# The contents of api_config: below gets written to {{ deploy_directory }}/config/local-production.yml and overrides config during runtime
 api_config:
   bind_port: "{{ bind_port }}"
   frontend_url: "http://{{webserver_name}}"

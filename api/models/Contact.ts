@@ -26,3 +26,11 @@ export default class Contact implements IContact {
   @IsOptional() @IsEmail()
   email: string;
 }
+
+export interface IContact {
+  id?: number,
+  lastName: string;
+  firstName: string;
+  phone: string;
+  email: string;
+}

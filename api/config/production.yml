@@ -1,5 +1,11 @@
 debug_logging: false
+controllers:
+  - controllers/*.js
 database:
   seed_test_data: false
+  entities:
+    - models/*.js
+  migrations:
+    - db/migrations/*.js
 webpack_middleware:
   enabled: false
