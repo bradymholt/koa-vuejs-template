@@ -22,13 +22,6 @@
         "test"
       ],
       "isTestCommand": true
-    },
-    {
-      "taskName": "pretest:client",
-      "args":[
-        "run",
-        "pretest:client"
-      ]
     }
   ]
 }

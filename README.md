@@ -46,13 +46,13 @@ To start the app for development, run this command.  This will:
 - Run dotnet watch run which will build the app (if changed), watch for changes and start the web server on http://localhost:5000
 - Run Webpack dev middleware with HMR
 
-### `npm run migrate`
+### `npm run migration:create [name]`
 
-After making changes to Entity Framework models in `api/Models/`, run this command to generate and run a migration on the database.  A timestamp will be used for the migration name.
+Creates a new migration file in api/db/migrations/.  Migrations will be run each time the app starts (controlled with api/config/default.yml:autoMigrationsRun)
 
 ### `npm test`
 
-This will run the xUnit tests in api.test/ and the Vue.js tests in client-web.test/.
+This will run the tests.
 
 ### `npm run provision:production`
 
@@ -91,8 +91,8 @@ This project has [Visual Studio Code](https://code.visualstudio.com/) tasks and 
 
 ### Tasks
 
-- **Command+Shift+B** - Runs the "build" task which builds the api/ project
-- **Command+Shift+T** - Runs the "test" task which runs the xUnit tests in api.test/ and Mocha/Enzyme tests in client-web.test/.
+- **Command+Shift+B** - Runs the "build" task which builds the api/ project and outputs to api/build/
+- **Command+Shift+T** - Runs the "test" task which runs the tests.
 
 ### Debug Launcher
 

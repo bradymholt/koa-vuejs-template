@@ -10,7 +10,7 @@
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
     "start:production": "NODE_ENV=production node server.js",
-    "migrations:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
+    "migration:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
     "build": "tsc -p ./api; webpack --config ./client-web/webpack.config.production.js; cp -r {package.json,./api/config} ./api/build",
     "provision:production": "ansible-playbook -l production -i ./ops/config.yml ./ops/provision.yml",
     "deploy:production": "npm run build && ansible-playbook -l production -i ./ops/config.yml ./ops/deploy.yml",
