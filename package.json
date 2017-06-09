@@ -9,7 +9,9 @@
   "scripts": {
     "prestart": "docker-compose up -d",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node server.ts'",
-    "test": "cd ./test && karma start",
+    "test:unit": "cd ./test/unit && karma start",
+    "test:e2e": "cd ./test/unit && karma start",
+    "test": "npm run test:unit && npm run test:e2e",
     "start:production": "NODE_ENV=production node server.js",
     "migration:create": "cd ./api && ts-node ../node_modules/.bin/typeorm migrations:create -d db/migrations -n",
     "build": "tsc -p ./api; webpack --config ./client-web/webpack.config.production.js; cp -r {package.json,./api/config} ./api/build",
@@ -36,7 +38,6 @@
     "html-webpack-plugin": "^2.22.0",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
-    "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.31",
@@ -64,6 +65,7 @@
     "write-file-webpack-plugin": "^4.1.0"
   },
   "dependencies": {
+    "@types/webpack-env": "^1.13.0",
     "bcryptjs": "^2.4.3",
     "config": "^1.26.1",
     "js-yaml": "^3.8.4",

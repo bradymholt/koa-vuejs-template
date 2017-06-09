@@ -11,10 +11,11 @@
       "es5",
       "es2015.promise"
     ],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "outDir": "./build"
   },
   "include": [
-    "./**/*.ts",
-    "../client-web/*.d.ts"
+    "./index.ts",
+    "../../client-web/*.d.ts"
   ]
 }

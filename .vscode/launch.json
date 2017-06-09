@@ -20,11 +20,11 @@
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/node_modules/karma/bin/karma",
-      "runtimeArgs": ["start", "${workspaceRoot}/test/karma.conf.js", "--no-single-run"],
+      "runtimeArgs": ["start", "${workspaceRoot}/test/unit/karma.conf.js", "--no-single-run"],
       "port": 9222,
       "sourceMaps": true,
       "timeout": 20000,
-      "webRoot": "${workspaceRoot}/test"
+      "webRoot": "${workspaceRoot}/test/unit/build/"
     }
   ]
 }

@@ -5,11 +5,10 @@ let buildDir = path.join(__dirname, "build");
 process.chdir(__dirname);
 
 /* Run webpack build first
-    - This will output assets to buildDir
-    - There are more elegant ways to do this like using webpack dev middleware but
-      getting sourcemap support (particularly with integrated debugging in VSCode)
-      requires all sorts of crazy hacks.  Running the webpack build with the CLI makes
-      things much easier.
+    - This will output assets to {buildDir}/.  There are more elegant ways to do this
+      like using webpack dev middleware but getting sourcemap support (particularly
+      with integrated debugging in VSCode) requires all sorts of crazy hacks.
+      Running the webpack build with the CLI makes things much easier.
 */
 process.stdout.write("Running webpack...");
 const execSync = require('child_process').execSync;
@@ -28,18 +27,12 @@ module.exports = function (config) {
       }
     },
     frameworks: ['mocha'],
-    reporters: ['spec', 'coverage'],
+    reporters: ['spec'],
     basePath: buildDir,
     files: [
       "index.js",
       { pattern: '*.map', watched: false, included: false, served: true },
     ],
-    coverageReporter: {
-      dir: path.join(buildDir, "coverage"),
-      reporters: [
-        { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' }
-      ]
-    }
+    singleRun: false
   })
 }

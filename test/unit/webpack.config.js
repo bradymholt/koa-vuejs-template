@@ -8,9 +8,12 @@ var config = {
     ]
   },
   output: {
-    filename: "[name].js"
+    filename: "[name].js",
+    path: path.join(__dirname, "build")
   },
-  devtool: "nosources-source-map",
+  // This will output a [name].js.map file that has source line mappings and source content.
+  // and will support Chrome debugger or VSCode debugger to be used.
+  devtool: "cheap-source-map",
   resolve: {
     extensions: [".ts", ".js", ".vue"]
   },
