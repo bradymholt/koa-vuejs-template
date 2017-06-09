@@ -16,27 +16,15 @@
       "protocol": "inspector"
     },
     {
-      "name": "Debug web.test/ (Mocha tests)",
-      "type": "node",
+      "name": "Debug web test (Karma/Mocha tests)",
+      "type": "chrome",
       "request": "launch",
-      "protocol": "inspector",
-      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-      "stopOnEntry": false,
-      "args": [
-        "--require",
-        "ignore-styles",
-        "--recursive",
-        "web.test/build/client-web.test"
-      ],
-      "cwd": "${workspaceRoot}",
-      "preLaunchTask": "pretest:client",
-      "runtimeArgs": [
-        "--nolazy"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "sourceMaps": true
+      "runtimeExecutable": "${workspaceRoot}/node_modules/karma/bin/karma",
+      "runtimeArgs": ["start", "${workspaceRoot}/test/karma.conf.js", "--no-single-run"],
+      "port": 9222,
+      "sourceMaps": true,
+      "timeout": 20000,
+      "webRoot": "${workspaceRoot}/test"
     }
   ]
 }

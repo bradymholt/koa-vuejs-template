@@ -13,10 +13,8 @@
     ],
     "moduleResolution": "node"
   },
-  "files": [
-    "./boot.ts"
-  ],
   "include": [
-    "./**/*.d.ts"
+    "./**/*.ts",
+    "../client-web/*.d.ts"
   ]
 }

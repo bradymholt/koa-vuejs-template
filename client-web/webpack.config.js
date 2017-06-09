@@ -14,7 +14,7 @@ var config = {
     filename: "[name].js",
     publicPath: "/"
   },
-  devtool: "cheap-module-source-map",
+  devtool: "inline-source-map",
   resolve: {
     extensions: [".ts", ".js", ".vue", ".styl", ".css"]
   },

@@ -1,18 +1,15 @@
-.DS_Store
-
+# api
 api/build/
 api/public/**
 !api/public/favicon.ico
-
-# node
-node_modules/
-typings/
-npm-debug.log
 
 # client-react
 client-react/components/*.js
 client-react.test/build
 !client-react.test/build/client-react/styles/
+
+# test
+test/build/
 
 # ops
 ops/config.yml
@@ -21,4 +18,6 @@ ops/*.retry
 # other
 *.js.map
 yarn-error.log
+.DS_Store
+node_modules/
 
