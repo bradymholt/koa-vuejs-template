@@ -33,6 +33,6 @@ module.exports = function (config) {
       "index.js",
       { pattern: '*.map', watched: false, included: false, served: true },
     ],
-    singleRun: false
+    singleRun: true
   })
 }

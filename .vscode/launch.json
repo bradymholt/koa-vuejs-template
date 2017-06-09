@@ -16,6 +16,22 @@
       "protocol": "inspector"
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug test/api (tests)",
+      "program": "${workspaceRoot}/node_modules/.bin/_mocha",
+      "args": [
+        "--compilers",
+        "ts:../../node_modules/ts-node/register",
+        "index.ts"
+      ],
+      "cwd": "${workspaceRoot}/test/api",
+      "protocol": "inspector",
+      "env": {
+        "NODE_CONFIG_DIR": "${workspaceRoot}/api/config"
+      }
+    },
+    {
       "name": "Debug web test (Karma/Mocha tests)",
       "type": "chrome",
       "request": "launch",
