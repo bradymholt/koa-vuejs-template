@@ -1,5 +1,5 @@
 import RestUtilities from "./RestUtilities";
-import { IContact } from "../../api/interfaces/IContact";
+import { IContact } from "../../api/models/interfaces/IContact";
 export { IContact };
 
 export default class Contacts {
