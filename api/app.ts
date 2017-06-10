@@ -5,15 +5,11 @@ import { createKoaServer } from "routing-controllers";
 import SpaFallback from './middleware/SpaFallback';
 import JwtAuthenticate from './middleware/JwtAuthenticator';
 import boostrapWebpackMiddleware from './middleware/Webpack';
-import { seedTestData } from "./db/Seeder";
+import dbInitializer from "./db/Initializer";
 import * as config from 'config';
 
-function init(): Koa {
-  createDbConnection(config.get("database") as ConnectionOptions).then((connection: Connection) => {
-    if (config.get("database.seed_test_data")) {
-      seedTestData();
-    }
-  });
+async function init() {
+  await dbInitializer.init();
 
   const app: Koa = createKoaServer({
     development: (config.get("debug_logging") as boolean),
@@ -29,13 +25,13 @@ function init(): Koa {
     boostrapWebpackMiddleware(app, (__dirname + config.get("webpack_middleware.config_path")));
   }
 
-  app.use(serve(__dirname + '/public'));
-  return app;
+  return app.use(serve(__dirname + '/public'));
 }
 
 export default {
-  start: function () {
-    let app = init();
+  start: async function () {
+    let app = await init();
     app.listen(config.get("bind_port"));
+    return app;
   }
 };
