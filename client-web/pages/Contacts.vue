@@ -29,21 +29,21 @@
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary" v-if="searchQuery" v-on:click="showAll">clear search</button>
+    <button type="button" class="btn btn-primary" v-if="isSearchMode" v-on:click="showAll">clear search</button>
     <router-link class="btn btn-success" to="/contacts/new">add</router-link>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import ContactService, { IContact } from '../services/Contacts';
+import Vue from "vue";
+import Component from "vue-class-component";
+import ContactService, { IContact } from "../services/Contacts";
 
 @Component
 export default class Contacts extends Vue {
   contacts: Array<IContact> = [];
   editContact: Object = null;
-  isAddMode = false;
+  isSearchMode = false;
   searchQuery: string =  "";
 
   created(){
@@ -53,8 +53,9 @@ export default class Contacts extends Vue {
   showAll() {
     let contactService = new ContactService();
         contactService.fetchAll().then((response) => {
-          this.searchQuery = '';
+          this.searchQuery = "";
           this.contacts = response.content;
+          this.isSearchMode = false;
         });
     }
 
@@ -62,6 +63,7 @@ export default class Contacts extends Vue {
       let contactService = new ContactService();
         contactService.search(this.searchQuery).then((response) => {
           this.contacts = response.content;
+          this.isSearchMode = true;
         });
     }
 
