@@ -103,10 +103,6 @@
   dependencies:
     "@types/source-map" "*"
 
-"@types/webpack-env@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.0.tgz#3044381647e11ee973c5af2e925323930f691d80"
-
 "@types/webpack@^2.2.15":
   version "2.2.15"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-2.2.15.tgz#4ad7e9b7a51cae736a1dc783f203610c884789ff"
@@ -4688,7 +4684,7 @@ type-is@^1.5.5, type-is@^1.6.14, type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.15"
 
-typeorm@^0.1.0-alpha.3:
+typeorm@0.1.0-alpha.3:
   version "0.1.0-alpha.3"
   resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.1.0-alpha.3.tgz#a7d912f6e63c0d30eff6bc60941e6073d8aba9ba"
   dependencies:
