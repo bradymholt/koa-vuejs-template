@@ -7,7 +7,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "prestart": "docker-compose up -d",
+    "prestart": "docker-compose up -d && node -e 'console.log(\"Waiting for PostgreSQL to finish starting...\"); setTimeout(()=>{}, 3000)'",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node boot.ts'",
     "test:unit": "cd ./test/unit && karma start",
     "test:integration": "cd ./test/integration && mocha --compilers ts:../../node_modules/ts-node/register index.ts",
