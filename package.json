@@ -80,7 +80,7 @@
     "pg": "^6.2.4",
     "reflect-metadata": "^0.1.10",
     "routing-controllers": "^0.7.0",
-    "typeorm": "0.1.0-alpha.3",
+    "typeorm": "^0.1.0-alpha.8",
     "webpack": "^2.3.3"
   }
 }

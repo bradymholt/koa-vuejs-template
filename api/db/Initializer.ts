@@ -6,7 +6,8 @@ import Contact from "../models/Contact";
 
 export default class DbInitializer {
   static async init() {
-    let options = config.get("database") as ConnectionOptions;
+    // Get the options and clone to a new object since node-config gives a read-only object and TypeORM attempts to modify it.
+    let options = Object.assign({}, config.get("database")) as ConnectionOptions;
     try {
       let connection = await createDbConnection(options);
       if (config.get("database.seed_test_data")) {
