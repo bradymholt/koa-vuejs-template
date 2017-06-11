@@ -10,7 +10,7 @@
       "name": "Debug api/ (server)",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
       "args": [
-        "server.ts"
+        "boot.ts"
       ],
       "cwd": "${workspaceRoot}/api",
       "protocol": "inspector"
@@ -18,18 +18,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug test/api (tests)",
+      "name": "Debug test/integration (tests)",
       "program": "${workspaceRoot}/node_modules/.bin/_mocha",
       "args": [
         "--compilers",
         "ts:../../node_modules/ts-node/register",
         "index.ts"
       ],
-      "cwd": "${workspaceRoot}/test/api",
-      "protocol": "inspector",
-      "env": {
-        "NODE_CONFIG_DIR": "${workspaceRoot}/api/config"
-      }
+      "cwd": "${workspaceRoot}/test/integration",
+      "protocol": "inspector"
     },
     {
       "name": "Debug web test (Karma/Mocha tests)",
@@ -40,7 +37,7 @@
       "port": 9222,
       "sourceMaps": true,
       "timeout": 20000,
-      "webRoot": "${workspaceRoot}/test/unit/build/"
+      "webRoot": "${workspaceRoot}/test/unit"
     }
   ]
 }

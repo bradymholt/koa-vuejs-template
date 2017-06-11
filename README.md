@@ -13,11 +13,14 @@ This app is a template application using Koa for a REST/JSON API server and Vue.
   - Docker used for development PostgresSQL database and MailCatcher server
 - Client
   - Vue.js
+  - Single-file components (.vue)
   - Webpack for asset bundling and HMR (Hot Module Replacement)
-  - CSS Modules
+  - Bootstrap CSS
   - Fetch API for REST requests
 - Testing
   - Mocha
+  - Chai
+  - Karma
   - MailCatcher for development email delivery
 - DevOps
   - Ansible playbook for provisioning (Nginx reverse proxy, SSL via Let's Encrypt, PostgresSQL backups to S3)
@@ -54,7 +57,9 @@ Creates a new migration file in api/db/migrations/.  Migrations will be run each
 
 ### `npm test`
 
-This will run the tests.
+This will run the 2 test suites in test/.
+- **unit** - The unit tests are located in test/unit/ and use [Karma](https://karma-runner.github.io) to run the tests in Chrome.
+- **integration** - The integration tests are located in test/integration/ and are run from Node.js.
 
 ### `npm run provision:production`
 
