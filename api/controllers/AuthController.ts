@@ -22,9 +22,7 @@ export default class AuthController {
   async login( @Body() credentials: AuthCredentials) {
     let invalidCredentialsMessage = "The email or password is invalid!";
 
-    let user = await this.getRepo().createQueryBuilder("u").
-      where("u.email=:email", { email: credentials.email }).
-      getOne();
+    let user = await this.getRepo().findOne({ email: credentials.email });
 
     if (!user) {
       throw new BadRequestError(invalidCredentialsMessage);

@@ -45,9 +45,8 @@ export function IsEmail(options?: IsEmailOptions, validationOptions?: Validation
 @ValidatorConstraint({ async: true })
 export class IsUserAlreadyExistByEmailConstraint implements ValidatorConstraintInterface {
   validate(email: any, args: ValidationArguments) {
-    return getConnection().getRepository(User).createQueryBuilder("u").
-      where("u.email=:email", { email }).
-      getOne().then((user) => {
+    return getConnection().getRepository(User).findOne({ email })
+      .then((user) => {
         return !user;
       });
   }
