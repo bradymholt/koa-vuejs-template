@@ -1,0 +1,8 @@
+debug_logging: false
+database:
+  logging:
+    logSchemaCreation: true
+    logFailedQueryError: true
+    logQueries: false
+webpack_middleware:
+  enabled: false

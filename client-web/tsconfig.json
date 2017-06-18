@@ -14,9 +14,7 @@
     "moduleResolution": "node"
   },
   "files": [
-    "./boot.ts"
-  ],
-  "include": [
-    "./**/*.d.ts"
+    "./boot.ts",
+    ".vue.d.ts"
   ]
 }

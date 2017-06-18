@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "module": "es2015",
@@ -15,7 +14,9 @@
     "outDir": "./build"
   },
   "include": [
-    "./index.ts",
-    "../../client-web/*.d.ts"
+    "./**/*.ts"
+  ],
+  "files": [
+    "../../client-web/vue.d.ts"
   ]
 }

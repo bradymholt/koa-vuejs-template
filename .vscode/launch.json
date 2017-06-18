@@ -25,11 +25,12 @@
         "ts:../../node_modules/ts-node/register",
         "index.ts"
       ],
+      "preLaunchTask": "prestart",
       "cwd": "${workspaceRoot}/test/integration",
       "protocol": "inspector"
     },
     {
-      "name": "Debug web test (Karma/Mocha tests)",
+      "name": "Debug test/unit (Karma/Mocha tests)",
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/node_modules/karma/bin/karma",

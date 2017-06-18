@@ -6,13 +6,15 @@ process.chdir(path.join(__dirname, "../../api/"));
 import app from "../../api/app";
 import * as mocha from "mocha";
 import * as chai from "chai";
-import ChaiHttp = require('chai-http');
+import ChaiHttp from "chai-http";
 
 chai.use(ChaiHttp);
 let assert = chai.assert;
 
-// Start api server
-app.start();
+before(async function () {
+  // Start api server
+  return await app.start();
+});
 
 // Tests
 describe('/auth/login', () => {

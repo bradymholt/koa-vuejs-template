@@ -21,6 +21,13 @@
         "test"
       ],
       "isTestCommand": true
+    },
+    {
+      "taskName": "prestart",
+      "args": [
+        "run",
+        "prestart"
+      ]
     }
   ]
 }

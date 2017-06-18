@@ -7,10 +7,15 @@ import Contact from "../models/Contact";
 export default class DbInitializer {
   static async init() {
     // Get the options and clone to a new object since node-config gives a read-only object and TypeORM attempts to modify it.
-    let options = Object.assign({}, config.get("database")) as ConnectionOptions;
+    let options: any = Object.assign({}, config.get("database"));
+    // Prepend absolute path to entities/migrations items
+    options.entities = options.entities.map((item) => { return `${__dirname}/../${item}`; });
+    options.migrations = options.migrations.map((item) => { return `${__dirname}/../${item}`; });
+
     try {
-      let connection = await createDbConnection(options);
+      let connection = await createDbConnection(options as ConnectionOptions);
       if (config.get("database.seed_test_data")) {
+        console.log("Seeding the database...");
         this.seedData();
       }
     } catch (err) {
