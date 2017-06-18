@@ -8,19 +8,21 @@ This app is a template application using Koa for a REST/JSON API server and Vue.
 - Server
   - Koa
   - PostgresSQL
+  - TypeScript
   - [TypeORM](https://github.com/typeorm/typeorm) (data-mapper ORM)
   - [routing-controllers](https://github.com/pleerock/routing-controllers) (decorated, class-based controllers in Koa)
   - Docker used for development PostgresSQL database and MailCatcher server
 - Client
   - Vue.js
   - Single-file components (.vue)
+  - TypeScript
   - Webpack for asset bundling and HMR (Hot Module Replacement)
   - Bootstrap CSS
   - Fetch API for REST requests
 - Testing
   - Mocha
   - Chai
-  - Karma
+  - TypeScript
   - MailCatcher for development email delivery
 - DevOps
   - Ansible playbook for provisioning (Nginx reverse proxy, SSL via Let's Encrypt, PostgresSQL backups to S3)
