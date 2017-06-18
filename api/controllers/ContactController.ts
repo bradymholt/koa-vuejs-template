@@ -1,16 +1,11 @@
 import "reflect-metadata";
-import { JsonController, Param, Body, Get, Post, Put, Delete, OnUndefined, NotFoundError, QueryParam, Authorized } from "routing-controllers";
+import { JsonController, Authorized, Get, QueryParam, Param, Post, OnUndefined, Body, Put, Delete, NotFoundError } from "routing-controllers";
 import { getConnection } from 'typeorm';
-
 import Contact from '../models/Contact';
 
 @Authorized()
 @JsonController("/api/contacts")
 export default class ContactController {
-  private getRepo() {
-    return getConnection().getRepository(Contact);
-  }
-
   @Get("/")
   async getAll() {
     return await this.getRepo().find();
@@ -57,5 +52,9 @@ export default class ContactController {
     } else {
       let result = await this.getRepo().remove(existingContact);
     }
+  }
+
+  private getRepo() {
+    return getConnection().getRepository(Contact);
   }
 }

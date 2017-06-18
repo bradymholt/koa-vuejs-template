@@ -1,12 +1,11 @@
 import "reflect-metadata";
 import * as Koa from "koa";
-import { JsonController, Param, Body, Get, Post, Put, Delete, OnUndefined, OnNull, NotFoundError, UnauthorizedError, QueryParam, Redirect, BadRequestError } from "routing-controllers";
+import { JsonController, Body, Post, Get, OnUndefined, BadRequestError, QueryParam } from "routing-controllers";
 import { Ctx } from "routing-controllers/decorator/Ctx";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
 import { getConnection } from "typeorm";
 import * as config from 'config';
-
 import AuthCredentials from "../models/AuthCredentials";
 import User from "../models/User";
 import EmailHelper from "../helpers/EmailHelper";
@@ -14,10 +13,6 @@ import AuthCredentialsNew from "../models/AuthCredentialsNew";
 
 @JsonController("/api/auth")
 export default class AuthController {
-  private getRepo() {
-    return getConnection().getRepository(User);
-  }
-
   @Post("/login")
   async login( @Body() credentials: AuthCredentials) {
     let invalidCredentialsMessage = "The email or password is invalid!";
@@ -42,7 +37,7 @@ export default class AuthController {
 
   @Post("/register")
   @OnUndefined(204)
-  async register( @Body() credentials: AuthCredentialsNew, @Ctx() ctx: Koa.Context) {
+  async register( @Body() credentials: AuthCredentialsNew) {
     // Create a new user
     let newUser = new User()
     newUser.email = credentials.email;
@@ -74,5 +69,9 @@ export default class AuthController {
     }
 
     ctx.redirect(redirectUrl);
+  }
+
+  private getRepo() {
+    return getConnection().getRepository(User);
   }
 }

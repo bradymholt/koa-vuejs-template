@@ -16,7 +16,7 @@ export default class DbInitializer {
       let connection = await createDbConnection(options as ConnectionOptions);
       if (config.get("database.seed_test_data")) {
         console.log("Seeding the database...");
-        this.seedData();
+        await this.seedData();
       }
     } catch (err) {
       console.log(`Error initializing the database: ${err}`);

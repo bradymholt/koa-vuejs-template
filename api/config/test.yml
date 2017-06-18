@@ -1,5 +1,7 @@
 debug_logging: false
 database:
+  driver:
+    tablesPrefix: test.
   logging:
     logSchemaCreation: true
     logFailedQueryError: true
