@@ -6,7 +6,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var package = require("../package.json");
 
 // Extract the vue and vue-router dependency versions from package.json so that CDN url uses same version
-let vueVersion = package.devDependencies["vue"].replace(/\^/,'');
+let vueVersion = package.devDependencies["vue"].replace(/\^/, '');
 let vueRouterVersion = package.devDependencies["vue-router"].replace(/\^/, '');
 
 config.externals = {

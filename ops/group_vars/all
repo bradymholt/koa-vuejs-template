@@ -27,7 +27,7 @@ start_command: "npm run start:production"
 deploy_directory: "/home/{{ deploy_user }}/apps/{{ app_name }}"
 email_from_name: "{{ app_name }}"
 
-# The contents of api_config: below gets written to {{ deploy_directory }}/config/local-production.yml and overrides config during runtime
+# The contents of api_config: below gets written to {{ deploy_directory }}/config/local-production.yml and overrides config for runtime
 api_config:
   bind_port: "{{ bind_port }}"
   frontend_url: "http://{{webserver_name}}"

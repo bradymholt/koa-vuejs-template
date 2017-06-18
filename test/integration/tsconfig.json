@@ -9,8 +9,7 @@
     "emitDecoratorMetadata": true,
     "lib": [
       "es2015"
-    ],
-    "outDir": "./build"
+    ]
   },
   "include": [
     "./**/*.ts"

@@ -8,43 +8,43 @@ import Register from './pages/Register.vue';
 import Contacts from './pages/Contacts.vue';
 import ContactForm from './components/ContactForm.vue';
 
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+});
+
 Vue.use(VueRouter);
 
 let router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '', component: AuthLayout,
-            children: [
-                { path: '/', component: SignIn },
-                { path: '/register', component: Register },
-            ]
-        },
-        {
-            path: '', component: DefaultLayout,
-            children: [
-                { path: '/contacts', component: Contacts },
-                { path: '/contacts/new', component: ContactForm },
-                { path: '/contacts/edit/:id', name: 'editContact', component: ContactForm }
-            ]
-        },
-    ]
-});
-
-Vue.directive('focus', {
-    inserted: function (el) {
-        el.focus()
-    }
+  mode: 'history',
+  routes: [
+    {
+      path: '', component: AuthLayout,
+      children: [
+        { path: '/', component: SignIn },
+        { path: '/register', component: Register },
+      ]
+    },
+    {
+      path: '', component: DefaultLayout,
+      children: [
+        { path: '/contacts', component: Contacts },
+        { path: '/contacts/new', component: ContactForm },
+        { path: '/contacts/edit/:id', name: 'editContact', component: ContactForm }
+      ]
+    },
+  ]
 });
 
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App, {})
+  el: '#app',
+  router: router,
+  render: h => h(App, {})
 });
 
 // Hot Module Replacement
-declare var module:any;
+declare var module: any;
 if (module.hot) {
   module.hot.accept();
 }

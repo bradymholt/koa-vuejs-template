@@ -9,7 +9,7 @@
   "scripts": {
     "prestart": "docker-compose up -d && node -e 'console.log(\"Waiting for PostgreSQL to finish starting...\"); setTimeout(()=>{}, 3000)'",
     "start": "cd ./api && ../node_modules/.bin/nodemon -e ts --exec '../node_modules/.bin/ts-node boot.ts'",
-    "test:unit": "cd ./test/unit && ../../node_modules/.bin/mocha-webpack --require mock-dom.js --webpack-config ./webpack.config.js ./**/*.ts",
+    "test:unit": "cd ./test/unit && ../../node_modules/.bin/mocha-webpack --require domMocker.js --webpack-config ./webpack.config.js ./**/*.ts",
     "test:integration": "cd ./test/integration && NODE_ENV='test' NODE_CONFIG_DIR='../../api/config' TS_NODE_PROJECT='./tsconfig.json' mocha --compilers ts:../../node_modules/ts-node/register --recursive *.ts",
     "test": "npm run test:unit && npm run test:integration",
     "start:production": "NODE_ENV=production node boot.js",

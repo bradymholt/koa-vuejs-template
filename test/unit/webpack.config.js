@@ -5,11 +5,16 @@ const nodeExternals = require('webpack-node-externals');
 
 const sourceTestDir = path.resolve('./components');
 var config = {
-  externals: [nodeExternals({ modulesDir: path.join(__dirname, '../../node_modules')})],
-  // This will output a [name].js.map file that has source line mappings and source content.
-  // and will support Chrome debugger or VSCode debugger to be used.
+  /*
+    mocha-webpack will set entry/output options at runtime so we don't need to set them here
+  entry:
+  output: */
   target: "node",
   devtool: "cheap-module-eval-source-map",
+  /*
+    Use webpack-node-externals to prevent bundling anything referenced in node_modules.
+    At runtime, these modules can be loaded by Node and therefore do not need to be bundled by Webpack. */
+  externals: [nodeExternals({ modulesDir: path.join(__dirname, '../../node_modules') })],
   resolve: {
     extensions: [".ts", ".js", ".vue"],
   },

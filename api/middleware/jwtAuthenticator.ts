@@ -1,9 +1,6 @@
 import { Action } from "routing-controllers";
-import { getConnection } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 import * as config from 'config';
-
-import Contact from "../models/Contact";
 
 export default async function authenticate(action: Action, roles: string[]) {
   let isAuthorized = false;

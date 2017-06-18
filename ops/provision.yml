@@ -16,3 +16,6 @@
       when: postgresql_backup_to_s3
     - firewall
     - deploy_user
+  post_tasks:
+    - debug: msg="Successfully provisioned {{webserver_name}}"
+

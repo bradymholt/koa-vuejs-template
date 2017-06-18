@@ -8,6 +8,12 @@ let assert = chai.assert;
 describe('/auth/login', () => {
   let existingEmail = "user@test.com";
   let newEmail = "newUser@test.com";
+  let mailApiEndpoint = "http://localhost:8025/api/v1/messages";
+
+  before(async () => {
+    // Delete emails
+    await request.delete(mailApiEndpoint);
+  })
 
   it('it should login', async () => {
     let res = await request
@@ -30,7 +36,7 @@ describe('/auth/login', () => {
     assert.equal(res.status, 204);
 
     // Inspect confirmation email
-    let emails = (await request("http://localhost:8025/api/v2/messages")).data.items;
+    let emails: any[] = (await request(mailApiEndpoint)).data;
     assert.equal(emails.length, 1);
     let confirmEmail = emails[0];
     assert.equal(confirmEmail.To[0].Mailbox, newEmail.split("@")[0]);
@@ -54,9 +60,6 @@ describe('/auth/login', () => {
     let userRepo = await getConnection().getRepository(User);
     let user = await userRepo.findOne({ email: newEmail })
     await userRepo.remove(user);
-
-    // Delete emails
-    await request.delete("http://localhost:8025/api/v1/messages");
   });
 });
 

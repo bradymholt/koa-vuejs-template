@@ -31,7 +31,8 @@
         "NODE_CONFIG_DIR": "${workspaceRoot}/api/config",
         "TS_NODE_PROJECT": "${workspaceRoot}/test/integration/tsconfig.json"
       },
-      "cwd": "${workspaceRoot}/test/integration"
+      "cwd": "${workspaceRoot}/test/integration",
+      "smartStep": true
     },
     {
       "type": "node",
@@ -45,7 +46,8 @@
         "./webpack.config.js",
         "./**/*.ts"
       ],
-      "cwd": "${workspaceRoot}/test/unit"
+      "cwd": "${workspaceRoot}/test/unit",
+      "smartStep": true
     }
   ]
 }

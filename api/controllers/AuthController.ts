@@ -48,7 +48,8 @@ export default class AuthController {
     // Send confirmation email
     let confirmEmailToken = jwt.sign({ userId: newUser.id }, config.get("jwt.key"), { expiresIn: config.get("jwt.expiry") });
     let emailConfirmUrl = `${config.get("frontend_url")}/api/auth/confirm?token=${confirmEmailToken}`;
-    await EmailHelper.sendEmail(newUser.email, "Please confirm your account", `Please confirm your account by clicking this <a href=\"${emailConfirmUrl}\">link</a>.`);
+    await EmailHelper.sendEmail(newUser.email, "Please confirm your account",
+      `Please confirm your account by clicking this <a href=\"${emailConfirmUrl}\">link</a>.`);
   }
 
   @Get("/confirm")
