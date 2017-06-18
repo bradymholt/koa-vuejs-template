@@ -9,10 +9,7 @@ services:
     ports:
       - "5433:5432"
   smtp:
-    image: jeanberu/mailcatcher
-    environment:
-      - SMTP_PORT=1025
-      - HTTP_PORT=1080
+    image: mailhog/mailhog
     ports:
       - "1025:1025"
-      - "1080:1080"
+      - "8025:8025"

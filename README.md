@@ -11,7 +11,7 @@ This app is a template application using Koa for a REST/JSON API server and Vue.
   - TypeScript
   - [TypeORM](https://github.com/typeorm/typeorm) (data-mapper ORM)
   - [routing-controllers](https://github.com/pleerock/routing-controllers) (decorated, class-based controllers in Koa)
-  - Docker used for development PostgresSQL database and MailCatcher server
+  - Docker used for development PostgresSQL database and MailHog server
 - Client
   - Vue.js
   - Single-file components (.vue)
@@ -23,7 +23,7 @@ This app is a template application using Koa for a REST/JSON API server and Vue.
   - Mocha
   - Chai
   - TypeScript
-  - MailCatcher for development email delivery
+  - MailHog for development email delivery
 - DevOps
   - Ansible playbook for provisioning (Nginx reverse proxy, SSL via Let's Encrypt, PostgresSQL backups to S3)
   - Ansible playbook for deployment
@@ -49,7 +49,7 @@ When first cloning the repo or adding new dependencies, run this command.  This 
 
 To start the app for development, run this command.  This will:
 
-- Run `docker-compose up` to ensure the PostgreSQL and MailCatcher Docker images are up and running
+- Run `docker-compose up` to ensure the PostgreSQL and MailHog Docker images are up and running
 - Run dotnet watch run which will build the app (if changed), watch for changes and start the web server on http://localhost:5000
 - Run Webpack dev middleware with HMR
 
@@ -91,8 +91,8 @@ This script will:
 
 ## Development Email Delivery
 
-This template includes a [MailCatcher](https://mailcatcher.me/) Docker image so that when email is sent during development (i.e. new user registration), it can be viewed
-in the MailCacher web interface at [http://localhost:1080/](http://localhost:1080/).
+This template includes a [MailHog](https://github.com/mailhog/MailHog) Docker image so that when email is sent during development (i.e. new user registration), it can be viewed
+in the MailHog web interface at [http://localhost:8025/](http://localhost:8025/).
 
 ## Visual Studio Code config
 
