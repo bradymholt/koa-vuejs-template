@@ -26,6 +26,7 @@ export default class DbInitializer {
 
   private static async seedData() {
     let connection = getConnection();
+    let contactRepo = connection.getRepository(Contact);
 
     // Create test user
     let email = "user@test.com";
@@ -41,22 +42,22 @@ export default class DbInitializer {
     await userRepo.persist(user1);
 
     // Create test contacts
-    let contact1 = new Contact();
-    contact1.id = 1;
-    contact1.lastName = "Finkley";
-    contact1.firstName = "Adam";
-    contact1.phone = "555-555-5555";
-    contact1.email = "adam@somewhere.com";
+    let contact1 = new Contact({
+      id: 1,
+      lastName: "Finkley",
+      firstName: "Adam",
+      phone:  "555-555-5555",
+      email: "adam@somewhere.com"
+    });
+    await contactRepo.save(contact1);
 
-    let contact2 = new Contact();
-    contact2.id = 2;
-    contact2.lastName = "Biles";
-    contact2.firstName = "Steven";
-    contact2.phone = "555-555-5555";
-    contact2.email = "sbiles@somewhere.com";
-
-    let contactRepo = connection.getRepository(Contact);
-    await contactRepo.persist(contact1);
-    await contactRepo.persist(contact2);
+    let contact2 = new Contact({
+      id: 2,
+      lastName: "Biles",
+      firstName: "Steven",
+      phone: "555-555-5555",
+      email: "sbiles@somewhere.com"
+    });
+    await contactRepo.save(contact2);
   }
 }

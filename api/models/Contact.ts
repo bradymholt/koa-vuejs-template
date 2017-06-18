@@ -6,6 +6,12 @@ import { IContact } from "./interfaces/IContact";
 
 @Entity()
 export default class Contact implements IContact {
+  constructor(initializer: Partial<Contact>) {
+    if (initializer) {
+      Object.assign(this, initializer);
+    }
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
