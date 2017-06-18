@@ -28,20 +28,20 @@ export default class DbInitializer {
 
   private static async seedData() {
     let connection = getConnection();
+    let userRepo = connection.getRepository(User);
     let contactRepo = connection.getRepository(Contact);
 
     // Create test user
     let email = "user@test.com";
-    let password = "P2ssw0rd!";
-
-    let user1 = new User()
-    user1.email = email;
-    let hashedPassword = await bcrypt.hash(password, 3);
-    user1.hashedPassword = hashedPassword;
-    user1.emailConfirmed = true;
-
-    let userRepo = connection.getRepository(User);
-    await userRepo.persist(user1);
+    let exists = !!userRepo.findOne({ email });
+    if (!exists) {
+      let user1 = new User()
+      user1.email = "user@test.com";
+      let hashedPassword = await bcrypt.hash("P2ssw0rd!", 3);
+      user1.hashedPassword = hashedPassword;
+      user1.emailConfirmed = true;
+      await userRepo.save(user1);
+    }
 
     // Create test contacts
     let contact1 = new Contact({
