@@ -5,11 +5,11 @@ import { createKoaServer } from "routing-controllers";
 import SpaFallback from './middleware/SpaFallback';
 import JwtAuthenticate from './middleware/JwtAuthenticator';
 import boostrapWebpackMiddleware from './middleware/Webpack';
-import dbInitializer from "./db/Initializer";
+import dbInitializer, { PostgresConnectionOptions } from "./db/Initializer";
 import * as config from 'config';
 
 async function init() {
-  await dbInitializer.init();
+  await dbInitializer.init(config.get("database") as PostgresConnectionOptions, config.get("database.seed_test_data") as boolean);
 
   const app: Koa = createKoaServer({
     development: (config.get("debug_logging") as boolean),

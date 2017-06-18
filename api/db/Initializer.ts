@@ -1,20 +1,22 @@
 import { createConnection as createDbConnection, getConnection, ConnectionOptions, Connection } from 'typeorm';
-import * as config from 'config';
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import * as bcrypt from "bcryptjs";
 import User from "../models/User";
 import Contact from "../models/Contact";
 
+export type PostgresConnectionOptions = PostgresConnectionOptions;
+
 export default class DbInitializer {
-  static async init() {
+  static async init(connectionOptions: PostgresConnectionOptions, seed: boolean = false) {
     // Get the options and clone to a new object since node-config gives a read-only object and TypeORM attempts to modify it.
-    let options: any = Object.assign({}, config.get("database"));
+    let options: any = Object.assign({}, connectionOptions);
     // Prepend absolute path to entities/migrations items
     options.entities = options.entities.map((item) => { return `${__dirname}/../${item}`; });
     options.migrations = options.migrations.map((item) => { return `${__dirname}/../${item}`; });
 
     try {
       let connection = await createDbConnection(options as ConnectionOptions);
-      if (config.get("database.seed_test_data")) {
+      if (seed) {
         console.log("Seeding the database...");
         await this.seedData();
       }
