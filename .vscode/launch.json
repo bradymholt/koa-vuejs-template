@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug api/ (server)",
+      "name": "Debug api/",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
       "args": [
         "boot.ts"
@@ -18,27 +18,34 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug test/integration (tests)",
+      "name": "Debug test/integration/",
       "program": "${workspaceRoot}/node_modules/.bin/_mocha",
       "args": [
         "--compilers",
         "ts:../../node_modules/ts-node/register",
-        "index.ts"
+        "--recursive",
+        "*.ts"
       ],
-      "preLaunchTask": "prestart",
-      "cwd": "${workspaceRoot}/test/integration",
-      "protocol": "inspector"
+      "env": {
+        "NODE_ENV": "test",
+        "NODE_CONFIG_DIR": "${workspaceRoot}/api/config",
+        "TS_NODE_PROJECT": "${workspaceRoot}/test/integration/tsconfig.json"
+      },
+      "cwd": "${workspaceRoot}/test/integration"
     },
     {
-      "name": "Debug test/unit (Karma/Mocha tests)",
-      "type": "chrome",
+      "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/karma/bin/karma",
-      "runtimeArgs": ["start", "${workspaceRoot}/test/unit/karma.conf.js", "--no-single-run"],
-      "port": 9222,
-      "sourceMaps": true,
-      "timeout": 20000,
-      "webRoot": "${workspaceRoot}/test/unit"
+      "name": "Debug test/unit/",
+      "program": "${workspaceRoot}/node_modules/.bin/mocha-webpack",
+      "args": [
+        "--require",
+        "mock-dom.js",
+        "--webpack-config",
+        "./webpack.config.js",
+        "./**/*.ts"
+      ],
+      "cwd": "${workspaceRoot}/test/unit"
     }
   ]
 }

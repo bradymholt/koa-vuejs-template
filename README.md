@@ -105,7 +105,8 @@ This project has [Visual Studio Code](https://code.visualstudio.com/) tasks and 
 
 ### Debug Launcher
 
-With the following debugger launch configs, you can set breakpoints in api/ or the the Mocha tests in client-web.test/ and have full debugging support.
+With the following debugger launch configs, you can set breakpoints and have full debugging support in [Visual Studio Code](https://code.visualstudio.com/)
 
-- **Debug api/ (server)** - Runs the vscode debugger (breakpoints) on the api/ Node.js/Koa app
-- **Debug client-web.test/ (Mocha tests)** - Runs the vscode debugger on the client-web.test/ Mocha tests
+- **Debug api/** - Runs api (Node.js/Koa app) app with the VSCode debugger
+- **Debug test/integration/** - Runs the integration test suite with the VSCode debugger
+- **Debug test/unit/** - Runs the unit test suite with the VSCode debugger
