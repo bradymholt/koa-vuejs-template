@@ -1,8 +1,9 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Index } from "typeorm";
 import { IsOptional, MinLength, IsEmail } from "./Validators";
 
 @Entity()
+@Index("idx_email_unique", (user: User) => [user.email], { unique: true })
 export default class User {
   constructor() {
     this.emailConfirmed = false;
