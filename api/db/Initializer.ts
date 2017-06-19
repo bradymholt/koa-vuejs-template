@@ -51,12 +51,7 @@ export default class DbInitializer {
       phone: "555-555-5555",
       email: "adam@somewhere.com"
     });
-
-    try {
-      await contactRepo.save(contact1);
-    } catch (e) {
-      console.log(e);
-    }
+    await contactRepo.save(contact1);
 
     let contact2 = new Contact({
       id: 2,
