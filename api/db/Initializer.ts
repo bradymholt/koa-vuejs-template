@@ -33,7 +33,7 @@ export default class DbInitializer {
 
     // Create test user
     let email = "user@test.com";
-    let exists = !!userRepo.findOne({ email });
+    let exists = !!(await userRepo.findOne({ email }));
     if (!exists) {
       let user1 = new User()
       user1.email = "user@test.com";
@@ -48,10 +48,15 @@ export default class DbInitializer {
       id: 1,
       lastName: "Finkley",
       firstName: "Adam",
-      phone:  "555-555-5555",
+      phone: "555-555-5555",
       email: "adam@somewhere.com"
     });
-    await contactRepo.save(contact1);
+
+    try {
+      await contactRepo.save(contact1);
+    } catch (e) {
+      console.log(e);
+    }
 
     let contact2 = new Contact({
       id: 2,

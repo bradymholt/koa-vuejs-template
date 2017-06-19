@@ -3,7 +3,6 @@ import { Entity, Column, PrimaryGeneratedColumn, Index } from "typeorm";
 import { IsOptional, MinLength, IsEmail } from "./Validators";
 
 @Entity()
-@Index("idx_email_unique", (user: User) => [user.email], { unique: true })
 export default class User {
   constructor() {
     this.emailConfirmed = false;
@@ -22,4 +21,8 @@ export default class User {
   @Column()
   @MinLength(5)
   hashedPassword: string;
+
+  @Column("jsonb", { nullable: true })
+  meta: any
 }
+
