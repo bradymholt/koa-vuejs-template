@@ -1,55 +1,62 @@
-import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator'
-import ContactService, { IContact } from '../services/Contacts';
-import { IError } from '../services/RestUtilities';
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+import ContactService, { IContact } from "../services/Contacts";
+import { IError } from "../services/RestUtilities";
 
 @Component
 export default class ContactForm extends Vue {
-    contact: IContact = null;
-    errors: Array<IError> = [];
+  contact: IContact = null;
+  errors: Array<IError> = [];
 
-    get indexedErrors() {
-        if (!this.errors) {
-            return {};
-        }
-
-        return this.errors.reduce((value: { [key: string]: string }, current: IError) => {
-            value[current.property] = current.constraints[Object.keys(current.constraints)[0]];
-            return value;
-        }, {});
+  get indexedErrors() {
+    if (!this.errors) {
+      return {};
     }
 
-    created() {
-        let contactService = new ContactService();
-        if (this.$route.params.id) {
-            contactService.fetch(parseInt(this.$route.params.id)).then((response) => {
-                this.contact = response.content;
-            });
-        } else {
-            let newContact: IContact = {
-                lastName: '', firstName: '', email: '', phone: ''
-            };
-            this.contact = newContact;
-        }
-    }
+    return this.errors.reduce(
+      (value: { [key: string]: string }, current: IError) => {
+        value[current.property] =
+          current.constraints[Object.keys(current.constraints)[0]];
+        return value;
+      },
+      {}
+    );
+  }
 
-    onSubmit() {
-        this.saveContact(this.contact);
+  created() {
+    let contactService = new ContactService();
+    if (this.$route.params.id) {
+      contactService.fetch(parseInt(this.$route.params.id)).then(response => {
+        this.contact = response.content;
+      });
+    } else {
+      let newContact: IContact = {
+        lastName: "",
+        firstName: "",
+        email: "",
+        phone: ""
+      };
+      this.contact = newContact;
     }
+  }
 
-    saveContact(contact: IContact) {
-        //this.errors = {};
-        let contactService = new ContactService();
-        contactService.save(contact).then((response) => {
-            if (!response.is_error) {
-                this.$router.go(-1);
-            } else {
-                this.errors = response.error_content.errors;
-            }
-        });
-    }
+  onSubmit() {
+    this.saveContact(this.contact);
+  }
 
-    firstError(errors: string[]) {
-        return errors ? errors[0] : "";
-    }
+  saveContact(contact: IContact) {
+    //this.errors = {};
+    let contactService = new ContactService();
+    contactService.save(contact).then(response => {
+      if (!response.is_error) {
+        this.$router.go(-1);
+      } else {
+        this.errors = response.error_content.errors;
+      }
+    });
+  }
+
+  firstError(errors: string[]) {
+    return errors ? errors[0] : "";
+  }
 }

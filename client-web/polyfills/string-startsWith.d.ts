@@ -1,3 +1,3 @@
 interface String {
-    startsWith(searchString: String, position?: number): boolean;
+  startsWith(searchString: String, position?: number): boolean;
 }

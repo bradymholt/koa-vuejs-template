@@ -5,9 +5,7 @@ var path = require("path");
 
 var config = {
   entry: {
-    main: [
-      path.join(__dirname, "boot.ts")
-    ]
+    main: [path.join(__dirname, "boot.ts")]
   },
   output: {
     path: path.join(__dirname, "../api/build/public"),
@@ -34,20 +32,26 @@ var config = {
           loaders: {
             stylus: ExtractTextPlugin.extract({
               fallback: "vue-style-loader",
-              use: [{
-                loader: "css-loader",
-                options: {
-                  sourceMap: true,
-                  minimize: true
+              use: [
+                {
+                  loader: "css-loader",
+                  options: {
+                    sourceMap: true,
+                    minimize: true
+                  }
+                },
+                {
+                  loader: "stylus-loader"
                 }
-              }, {
-                loader: "stylus-loader"
-              }]
+              ]
             })
           }
         }
       },
-      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000" }
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: "url-loader?limit=100000"
+      }
     ]
   },
   plugins: [

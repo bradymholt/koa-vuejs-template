@@ -1,4 +1,9 @@
-import { createConnection as createDbConnection, getConnection, ConnectionOptions, Connection } from 'typeorm';
+import {
+  createConnection as createDbConnection,
+  getConnection,
+  ConnectionOptions,
+  Connection
+} from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import * as bcrypt from "bcryptjs";
 import User from "../models/User";
@@ -7,12 +12,19 @@ import Contact from "../models/Contact";
 export type PostgresConnectionOptions = PostgresConnectionOptions;
 
 export default class DbInitializer {
-  static async init(connectionOptions: PostgresConnectionOptions, seed: boolean = false) {
+  static async init(
+    connectionOptions: PostgresConnectionOptions,
+    seed: boolean = false
+  ) {
     // Get the options and clone to a new object since node-config gives a read-only object and TypeORM attempts to modify it.
     let options: any = Object.assign({}, connectionOptions);
     // Prepend absolute path to entities/migrations items
-    options.entities = options.entities.map((item) => { return `${__dirname}/../${item}`; });
-    options.migrations = options.migrations.map((item) => { return `${__dirname}/../${item}`; });
+    options.entities = options.entities.map(item => {
+      return `${__dirname}/../${item}`;
+    });
+    options.migrations = options.migrations.map(item => {
+      return `${__dirname}/../${item}`;
+    });
 
     try {
       let connection = await createDbConnection(options as ConnectionOptions);
@@ -33,9 +45,9 @@ export default class DbInitializer {
 
     // Create test user
     let email = "user@test.com";
-    let exists = !!(await userRepo.findOne({ email }));
+    let exists = !!await userRepo.findOne({ email });
     if (!exists) {
-      let user1 = new User()
+      let user1 = new User();
       user1.email = "user@test.com";
       let hashedPassword = await bcrypt.hash("P2ssw0rd!", 3);
       user1.hashedPassword = hashedPassword;

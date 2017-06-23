@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import * as Koa from "koa";
 
 /**
   Middleware that will rewrite (not redirect!) nested SPA page requests to the SPA root path.
@@ -18,19 +18,22 @@ import * as Koa from 'koa';
       http://localhost:5000/contacts => /
       http://localhost:5000/contacts/5/edit => /
  */
-export default function spaFallback(apiPathPrefix: string, rewritePath: string) {
+export default function spaFallback(
+  apiPathPrefix: string,
+  rewritePath: string
+) {
   let apiPathPrefixRegEx = new RegExp(`${apiPathPrefix}.+\/?`);
   return async (ctx: Koa.Context, next) => {
     if (
       // Not an API request
-      !apiPathPrefixRegEx.test(ctx.url)
+      !apiPathPrefixRegEx.test(ctx.url) &&
       // Not an asset request (image, css, js, anythingwith.ext)
-      && !ctx.url.match(/\.\S{2,4}$/)
+      !ctx.url.match(/\.\S{2,4}$/) &&
       // Not a webpack HMR request
-      && !ctx.url.match(/webpack\_hmr/)) {
-
+      !ctx.url.match(/webpack\_hmr/)
+    ) {
       ctx.url = rewritePath;
     }
     await next();
-  }
+  };
 }

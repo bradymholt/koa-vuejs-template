@@ -1,11 +1,19 @@
 import "reflect-metadata";
 import * as Koa from "koa";
-import { JsonController, Body, Post, Get, OnUndefined, BadRequestError, QueryParam } from "routing-controllers";
+import {
+  JsonController,
+  Body,
+  Post,
+  Get,
+  OnUndefined,
+  BadRequestError,
+  QueryParam
+} from "routing-controllers";
 import { Ctx } from "routing-controllers/decorator/Ctx";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
 import { getConnection } from "typeorm";
-import * as config from 'config';
+import * as config from "config";
 import AuthCredentials from "../models/AuthCredentials";
 import User from "../models/User";
 import EmailHelper from "../helpers/EmailHelper";
@@ -14,7 +22,7 @@ import AuthCredentialsNew from "../models/AuthCredentialsNew";
 @JsonController("/api/auth")
 export default class AuthController {
   @Post("/login")
-  async login( @Body() credentials: AuthCredentials) {
+  async login(@Body() credentials: AuthCredentials) {
     let invalidCredentialsMessage = "The email or password is invalid!";
 
     let user = await this.getRepo().findOne({ email: credentials.email });
@@ -28,7 +36,9 @@ export default class AuthController {
         throw new BadRequestError("You must have a confirmed email to log in.");
       }
 
-      let token = jwt.sign({ userId: '1' }, config.get("jwt.key"), { expiresIn: config.get("jwt.expiry") });
+      let token = jwt.sign({ userId: "1" }, config.get("jwt.key"), {
+        expiresIn: config.get("jwt.expiry")
+      });
       return { token };
     } else {
       throw new BadRequestError(invalidCredentialsMessage);
@@ -37,23 +47,32 @@ export default class AuthController {
 
   @Post("/register")
   @OnUndefined(204)
-  async register( @Body() credentials: AuthCredentialsNew) {
+  async register(@Body() credentials: AuthCredentialsNew) {
     // Create a new user
-    let newUser = new User()
+    let newUser = new User();
     newUser.email = credentials.email;
     let hashedPassword = await bcrypt.hash(credentials.password, 3);
     newUser.hashedPassword = hashedPassword;
     await this.getRepo().persist(newUser);
 
     // Send confirmation email
-    let confirmEmailToken = jwt.sign({ userId: newUser.id }, config.get("jwt.key"), { expiresIn: config.get("jwt.expiry") });
-    let emailConfirmUrl = `${config.get("frontend_url")}/api/auth/confirm?token=${confirmEmailToken}`;
-    await EmailHelper.sendEmail(newUser.email, "Please confirm your account",
-      `Please confirm your account by clicking this <a href=\"${emailConfirmUrl}\">link</a>.`);
+    let confirmEmailToken = jwt.sign(
+      { userId: newUser.id },
+      config.get("jwt.key"),
+      { expiresIn: config.get("jwt.expiry") }
+    );
+    let emailConfirmUrl = `${config.get(
+      "frontend_url"
+    )}/api/auth/confirm?token=${confirmEmailToken}`;
+    await EmailHelper.sendEmail(
+      newUser.email,
+      "Please confirm your account",
+      `Please confirm your account by clicking this <a href=\"${emailConfirmUrl}\">link</a>.`
+    );
   }
 
   @Get("/confirm")
-  async confirm( @QueryParam("token") token: string, @Ctx() ctx: Koa.Context) {
+  async confirm(@QueryParam("token") token: string, @Ctx() ctx: Koa.Context) {
     let redirectUrl = null;
 
     try {
@@ -64,8 +83,7 @@ export default class AuthController {
       repo.persist(user);
 
       redirectUrl = "/?confirmed=1";
-    }
-    catch (err) {
+    } catch (err) {
       redirectUrl = "/error/email-confirm";
     }
 

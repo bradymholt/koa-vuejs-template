@@ -12,8 +12,7 @@ export default class Contact implements IContact {
     }
   }
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column()
   @MinLength(3)
@@ -24,10 +23,12 @@ export default class Contact implements IContact {
   firstName: string;
 
   @Column()
-  @IsOptional() @MinLength(7)
+  @IsOptional()
+  @MinLength(7)
   phone: string;
 
   @Column()
-  @IsOptional() @IsEmail()
+  @IsOptional()
+  @IsEmail()
   email: string;
 }

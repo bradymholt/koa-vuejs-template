@@ -8,5 +8,4 @@ export default class AuthCredentialsNew extends AuthCredentials {
     message: "This email address has already been registered."
   })
   email: string;
-
 }

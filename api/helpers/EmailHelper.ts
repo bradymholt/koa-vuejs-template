@@ -1,14 +1,22 @@
 import * as nodemailer from "nodemailer";
-import * as config from 'config';
+import * as config from "config";
 
 export default class EmailHelper {
-  static sendEmail(toAddress: string, subject: string, text: string, html?: string) {
+  static sendEmail(
+    toAddress: string,
+    subject: string,
+    text: string,
+    html?: string
+  ) {
     return new Promise((resolve, reject) => {
-
-      let transporter = nodemailer.createTransport(config.get("email.smtp_config"));
+      let transporter = nodemailer.createTransport(
+        config.get("email.smtp_config")
+      );
 
       let mailOptions = {
-        from: `"${config.get("email.from_name")}" <${config.get("email.from_address")}>`,
+        from: `"${config.get("email.from_name")}" <${config.get(
+          "email.from_address"
+        )}>`,
         to: toAddress,
         subject: subject,
         text: text,
@@ -23,6 +31,5 @@ export default class EmailHelper {
         resolve(info);
       });
     });
-
   }
 }

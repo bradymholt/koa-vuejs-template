@@ -1,5 +1,11 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn, Index, PrimaryColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Index,
+  PrimaryColumn
+} from "typeorm";
 /**
  * TypeORM will normally create the migrations table automatically but
  * it uses "timestamp" data type for the timestamp column which results
@@ -8,10 +14,7 @@ import { Entity, Column, PrimaryGeneratedColumn, Index, PrimaryColumn } from "ty
  */
 @Entity()
 export default class Migrations {
-  @PrimaryColumn("int8")
-  timestamp: number;
+  @PrimaryColumn("int8") timestamp: number;
 
-  @Column()
-  name: string;
+  @Column() name: string;
 }
-

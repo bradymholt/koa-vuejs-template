@@ -11,16 +11,17 @@ import ChaiHttp from "chai-http";
 chai.use(ChaiHttp);
 let assert = chai.assert;
 
-before(async function () {
+before(async function() {
   // Start api server
   return await app.start();
 });
 
 // Tests
-describe('/auth/login', () => {
-  it('it should login', (done) => {
-    chai.request("http://localhost:5000")
-      .post('/api/auth/login')
+describe("/auth/login", () => {
+  it("it should login", done => {
+    chai
+      .request("http://localhost:5000")
+      .post("/api/auth/login")
       .send({
         email: "user@test.com",
         password: "P2ssw0rd!"
@@ -32,4 +33,3 @@ describe('/auth/login', () => {
       });
   });
 });
-

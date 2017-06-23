@@ -8,21 +8,18 @@ export default class User {
     this.emailConfirmed = false;
   }
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column()
   @IsEmail()
   email: string;
 
-  @Column()
-  emailConfirmed: boolean;
+  @Column() emailConfirmed: boolean;
 
   @Column()
   @MinLength(5)
   hashedPassword: string;
 
   @Column("jsonb", { nullable: true })
-  meta: any
+  meta: any;
 }
-

@@ -1,9 +1,9 @@
 const webpack = require("webpack");
 const path = require("path");
 const fs = require("fs");
-const nodeExternals = require('webpack-node-externals');
+const nodeExternals = require("webpack-node-externals");
 
-const sourceTestDir = path.resolve('./components');
+const sourceTestDir = path.resolve("./components");
 var config = {
   /*
     mocha-webpack will set entry/output options at runtime so we don't need to set them here
@@ -14,9 +14,11 @@ var config = {
   /*
     Use webpack-node-externals to prevent bundling anything referenced in node_modules.
     At runtime, these modules can be loaded by Node and therefore do not need to be bundled by Webpack. */
-  externals: [nodeExternals({ modulesDir: path.join(__dirname, '../../node_modules') })],
+  externals: [
+    nodeExternals({ modulesDir: path.join(__dirname, "../../node_modules") })
+  ],
   resolve: {
-    extensions: [".ts", ".js", ".vue"],
+    extensions: [".ts", ".js", ".vue"]
   },
   module: {
     rules: [
