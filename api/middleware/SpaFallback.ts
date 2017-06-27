@@ -2,7 +2,7 @@ import * as Koa from "koa";
 
 /**
   Middleware that will rewrite (not redirect!) nested SPA page requests to the SPA root path.
-  For SPA apps that using client-side routing, a refresh or direct request for a nested path will
+  For SPA apps that are using client-side routing, a refresh or direct request for a nested path will
   be received by the server but the root path page should be served.
 
   Paramters:
