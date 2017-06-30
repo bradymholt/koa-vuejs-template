@@ -3,7 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const nodeExternals = require("webpack-node-externals");
 
-const sourceTestDir = path.resolve("./components");
 var config = {
   /*
     mocha-webpack will set entry/output options at runtime so we don't need to set them here

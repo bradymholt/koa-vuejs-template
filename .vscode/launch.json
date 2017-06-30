@@ -41,7 +41,7 @@
       "program": "${workspaceRoot}/node_modules/.bin/mocha-webpack",
       "args": [
         "--require",
-        "mock-dom.js",
+        "domMocker.js",
         "--webpack-config",
         "./webpack.config.js",
         "./**/*.ts"
