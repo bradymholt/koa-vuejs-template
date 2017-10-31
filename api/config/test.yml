@@ -2,6 +2,7 @@ debug_logging: false
 database:
   driver:
     tablesPrefix: test.
+  autoMigrationsRun: false
   logging:
     logSchemaCreation: true
     logFailedQueryError: true
